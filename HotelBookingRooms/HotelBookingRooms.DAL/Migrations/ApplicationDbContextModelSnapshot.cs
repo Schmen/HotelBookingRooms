@@ -42,6 +42,8 @@ namespace HotelBookingRooms.DAL.Migrations
 
                     b.Property<DateTime?>("ChkOut");
 
+                    b.Property<int>("HotelId");
+
                     b.Property<int>("RoomId");
 
                     b.Property<int>("StatusId");
@@ -49,6 +51,8 @@ namespace HotelBookingRooms.DAL.Migrations
                     b.Property<int>("UserId");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("HotelId");
 
                     b.HasIndex("RoomId");
 
@@ -112,6 +116,8 @@ namespace HotelBookingRooms.DAL.Migrations
 
                     b.Property<string>("Description");
 
+                    b.Property<int>("HotelId");
+
                     b.Property<string>("Name");
 
                     b.Property<int>("NumberOfBeds");
@@ -123,6 +129,8 @@ namespace HotelBookingRooms.DAL.Migrations
                     b.Property<string>("PriceStandardNumber");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("HotelId");
 
                     b.ToTable("RoomType");
                 });
@@ -146,7 +154,7 @@ namespace HotelBookingRooms.DAL.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
-                    b.Property<int>("Address");
+                    b.Property<string>("Address");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
@@ -283,6 +291,11 @@ namespace HotelBookingRooms.DAL.Migrations
 
             modelBuilder.Entity("HotelBookingRooms.BLL.Entities.Reservation", b =>
                 {
+                    b.HasOne("HotelBookingRooms.BLL.Entities.Hotel", "Hotel")
+                        .WithMany()
+                        .HasForeignKey("HotelId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("HotelBookingRooms.BLL.Entities.Room", "Room")
                         .WithMany()
                         .HasForeignKey("RoomId")
@@ -304,6 +317,14 @@ namespace HotelBookingRooms.DAL.Migrations
                     b.HasOne("HotelBookingRooms.BLL.Entities.RoomType", "RoomType")
                         .WithMany()
                         .HasForeignKey("RoomTypeID");
+                });
+
+            modelBuilder.Entity("HotelBookingRooms.BLL.Entities.RoomType", b =>
+                {
+                    b.HasOne("HotelBookingRooms.BLL.Entities.Hotel", "Hotel")
+                        .WithMany()
+                        .HasForeignKey("HotelId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
