@@ -16,6 +16,7 @@ namespace HotelBookingRooms.DAL.EF
         // Table properties e.g
         public virtual DbSet<RoomType> RoomType { get; set; }
         public virtual DbSet<Room> Room { get; set; }
+        public virtual DbSet<User> User { get; set; }
 
 
         public ApplicationDbContext(ConnectionStringDto connectionStringDto)
