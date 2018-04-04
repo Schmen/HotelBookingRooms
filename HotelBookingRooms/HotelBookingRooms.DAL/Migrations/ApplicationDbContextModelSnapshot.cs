@@ -21,6 +21,18 @@ namespace HotelBookingRooms.DAL.Migrations
                 .HasAnnotation("ProductVersion", "2.0.2-rtm-10011")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("HotelBookingRooms.BLL.Entities.Hotel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Hotel");
+                });
+
             modelBuilder.Entity("HotelBookingRooms.BLL.Entities.Reservation", b =>
                 {
                     b.Property<int>("Id")
