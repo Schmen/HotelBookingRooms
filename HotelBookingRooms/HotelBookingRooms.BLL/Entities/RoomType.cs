@@ -4,9 +4,9 @@ using System.Text;
 
 namespace HotelBookingRooms.BLL.Entities
 {
-    class RoomTypes
+    public class RoomType
     {
-        public int  ID { get; set; }
+        public int  Id { get; set; }
         public string Name { get; set; }
         public string Area { get; set; }
         public string PriceStandardNumber { get; set; }

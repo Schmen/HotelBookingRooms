@@ -21,7 +21,7 @@ namespace HotelBookingRooms.DAL.Migrations
                 .HasAnnotation("ProductVersion", "2.0.2-rtm-10011")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("ExampleTemplate.BLL.Entities.Role", b =>
+            modelBuilder.Entity("HotelBookingRooms.BLL.Entities.Role", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -45,7 +45,51 @@ namespace HotelBookingRooms.DAL.Migrations
                     b.ToTable("AspNetRoles");
                 });
 
-            modelBuilder.Entity("ExampleTemplate.BLL.Entities.User", b =>
+            modelBuilder.Entity("HotelBookingRooms.BLL.Entities.Room", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("FloorNumber");
+
+                    b.Property<int>("Number");
+
+                    b.Property<int>("RoomNumber");
+
+                    b.Property<int?>("RoomTypeID");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoomTypeID");
+
+                    b.ToTable("Room");
+                });
+
+            modelBuilder.Entity("HotelBookingRooms.BLL.Entities.RoomType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Area");
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("NumberOfBeds");
+
+                    b.Property<int>("NumberOfPeople");
+
+                    b.Property<string>("PriceSeasonNumber");
+
+                    b.Property<string>("PriceStandardNumber");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RoomType");
+                });
+
+            modelBuilder.Entity("HotelBookingRooms.BLL.Entities.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -177,9 +221,16 @@ namespace HotelBookingRooms.DAL.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("HotelBookingRooms.BLL.Entities.Room", b =>
+                {
+                    b.HasOne("HotelBookingRooms.BLL.Entities.RoomType", "RoomType")
+                        .WithMany()
+                        .HasForeignKey("RoomTypeID");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
-                    b.HasOne("ExampleTemplate.BLL.Entities.Role")
+                    b.HasOne("HotelBookingRooms.BLL.Entities.Role")
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -187,7 +238,7 @@ namespace HotelBookingRooms.DAL.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
                 {
-                    b.HasOne("ExampleTemplate.BLL.Entities.User")
+                    b.HasOne("HotelBookingRooms.BLL.Entities.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -195,7 +246,7 @@ namespace HotelBookingRooms.DAL.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
                 {
-                    b.HasOne("ExampleTemplate.BLL.Entities.User")
+                    b.HasOne("HotelBookingRooms.BLL.Entities.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -203,12 +254,12 @@ namespace HotelBookingRooms.DAL.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
                 {
-                    b.HasOne("ExampleTemplate.BLL.Entities.Role")
+                    b.HasOne("HotelBookingRooms.BLL.Entities.Role")
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("ExampleTemplate.BLL.Entities.User")
+                    b.HasOne("HotelBookingRooms.BLL.Entities.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -216,7 +267,7 @@ namespace HotelBookingRooms.DAL.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
                 {
-                    b.HasOne("ExampleTemplate.BLL.Entities.User")
+                    b.HasOne("HotelBookingRooms.BLL.Entities.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);

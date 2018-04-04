@@ -1,4 +1,5 @@
 ﻿using System;
+using HotelBookingRooms.BLL.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -13,7 +14,8 @@ namespace HotelBookingRooms.DAL.EF
         private readonly ConnectionStringDto _connectionStringDto;
 
         // Table properties e.g
-        // public virtual DbSet<Entity> TableName { get; set; }
+        public virtual DbSet<RoomType> RoomType { get; set; }
+        public virtual DbSet<Room> Room { get; set; }
 
 
         public ApplicationDbContext(ConnectionStringDto connectionStringDto)
