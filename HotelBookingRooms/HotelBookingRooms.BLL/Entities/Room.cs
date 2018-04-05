@@ -10,11 +10,13 @@ namespace HotelBookingRooms.BLL.Entities
     {
         [Key]
         public int Id { get; set; }
-        
-        public int Number { get; set; }
-        public int RoomNumber { get; set; }
-        public int FloorNumber { get; set; }
 
+        [Required(ErrorMessage = "Room number is required")]
+        public int RoomNumber { get; set; }
+        
+        [Required(ErrorMessage = "Floor number is required")]
+        public int FloorNumber { get; set; }
+        
         [ForeignKey("RoomType")]
         public int? RoomTypeID { get; set; }
         public virtual RoomType RoomType { get; set; }

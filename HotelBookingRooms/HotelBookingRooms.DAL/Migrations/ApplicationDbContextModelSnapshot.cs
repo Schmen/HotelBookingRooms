@@ -26,7 +26,9 @@ namespace HotelBookingRooms.DAL.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(80);
 
                     b.HasKey("Id");
 
@@ -38,9 +40,11 @@ namespace HotelBookingRooms.DAL.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime?>("ChkIn");
+                    b.Property<DateTime?>("ChkIn")
+                        .IsRequired();
 
-                    b.Property<DateTime?>("ChkOut");
+                    b.Property<DateTime?>("ChkOut")
+                        .IsRequired();
 
                     b.Property<int>("HotelId");
 
@@ -94,8 +98,6 @@ namespace HotelBookingRooms.DAL.Migrations
 
                     b.Property<int>("FloorNumber");
 
-                    b.Property<int>("Number");
-
                     b.Property<int>("RoomNumber");
 
                     b.Property<int?>("RoomTypeID");
@@ -112,21 +114,29 @@ namespace HotelBookingRooms.DAL.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Area");
+                    b.Property<string>("Area")
+                        .IsRequired()
+                        .HasMaxLength(60);
 
-                    b.Property<string>("Description");
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(200);
 
                     b.Property<int>("HotelId");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(40);
 
                     b.Property<int>("NumberOfBeds");
 
                     b.Property<int>("NumberOfPeople");
 
-                    b.Property<string>("PriceSeasonNumber");
+                    b.Property<decimal>("PriceSeasonNumber")
+                        .HasMaxLength(40);
 
-                    b.Property<string>("PriceStandardNumber");
+                    b.Property<decimal>("PriceStandardNumber")
+                        .HasMaxLength(40);
 
                     b.HasKey("Id");
 
@@ -140,7 +150,9 @@ namespace HotelBookingRooms.DAL.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(40);
 
                     b.HasKey("Id");
 
