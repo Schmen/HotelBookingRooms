@@ -1,5 +1,5 @@
 ﻿@using HotelBookingRooms.Web.Views.Manage
-@using ExampleTemplate.BLL.Entities
+@using HotelBookingRooms.BLL.Entities
 @inject SignInManager<User> SignInManager
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
