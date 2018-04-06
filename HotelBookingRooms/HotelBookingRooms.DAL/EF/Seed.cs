@@ -1,6 +1,7 @@
 ﻿using HotelBookingRooms.BLL.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace HotelBookingRooms.DAL.EF
 {
@@ -87,15 +88,20 @@ namespace HotelBookingRooms.DAL.EF
             }
         }
 
-        public static void SeedStatuses(ApplicationDbContext<User, Role, int> context)
+        public static async void SeedStatuses(ApplicationDbContext<User, Role, int> context)
         {
-            //if (context.Status.Find("Booked").Result == null)
-            //{
-            //context.Status.Add(new Status() { Name = "Booked" });
-            //}
-            context.Status.Add(new Status() { Name = "Booked" });
-            context.Status.Add(new Status() { Name = "Cancelled" });
-            context.Status.Add(new Status() { Name = "Expected" });
+            if(context.Status.Any(r => r.Name == "Booked") == false)
+            {
+                context.Status.Add(new Status() { Name = "Booked" });
+            }
+            if (context.Status.Any(r => r.Name == "Cancelled") == false)
+            {
+                context.Status.Add(new Status() { Name = "Cancelled" });
+            }
+            if (context.Status.Any(r => r.Name == "Expected") == false)
+            {
+                context.Status.Add(new Status() { Name = "Expected" });
+            }
             context.SaveChanges();
         }
     }
