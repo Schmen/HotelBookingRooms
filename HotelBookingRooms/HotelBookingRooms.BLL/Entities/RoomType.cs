@@ -8,6 +8,7 @@ namespace HotelBookingRooms.BLL.Entities
 {
     public class RoomType
     {
+
         [Key]
         public int  Id { get; set; }
 
@@ -36,10 +37,14 @@ namespace HotelBookingRooms.BLL.Entities
         [Required(ErrorMessage = "NumberOfBeds is required")]
         public int NumberOfBeds { get; set; }
 
+        //[Required(ErrorMessage = "Bathroom is required")]
+        //public bool Bathroom { get; set; }
+
         [Required(ErrorMessage = "Status is required")]
         [StringLength(200)]
         public string Description { get; set; }
         
         public virtual Hotel Hotel { get; set; }
+        
     }
 }
