@@ -161,7 +161,7 @@ namespace HotelBookingRooms.Web
             loggerFactory.AddFile("Logs/App-{Date}.txt");
 
             app.UseSession();
-            var dbContext = Services.BuildServiceProvider().GetRequiredService<DbContext>();
+            var dbContext = Services.BuildServiceProvider().GetRequiredService< ApplicationDbContext<User, Role, int>>();
             dbContext.Database.Migrate();
             var userManager = Services.BuildServiceProvider().GetRequiredService<UserManager<User>>();
             var roleManager = Services.BuildServiceProvider().GetRequiredService<RoleManager<Role>>();

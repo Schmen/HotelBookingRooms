@@ -1,17 +1,17 @@
 ﻿using HotelBookingRooms.BLL.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System;
 
 namespace HotelBookingRooms.DAL.EF
 {
     public static class Seed
     {
-        public static void RunSeed(DbContext context, RoleManager<Role> roleManager, UserManager<User> userManager)
+        public static void RunSeed(ApplicationDbContext<User, Role, int> context, RoleManager<Role> roleManager, UserManager<User> userManager)
         {
             // Seed operations
             SeedRoles(roleManager);
             SeedUsers(userManager);
+            SeedStatuses(context);
         }
 
         public static void SeedRoles(RoleManager<Role> roleManager)
@@ -24,12 +24,12 @@ namespace HotelBookingRooms.DAL.EF
             }
 
 
-            if (!roleManager.RoleExistsAsync ("Worker").Result)
+            if (!roleManager.RoleExistsAsync("Worker").Result)
             {
                 Role role = new Role();
                 role.Name = "Worker";
                 IdentityResult roleResult = roleManager.CreateAsync(role).Result;
-                
+
             }
 
             if (!roleManager.RoleExistsAsync("Administrator").Result)
@@ -68,7 +68,7 @@ namespace HotelBookingRooms.DAL.EF
 
                 if (result.Succeeded)
                 {
-                    userManager.AddToRoleAsync(user,"Worker").Wait();
+                    userManager.AddToRoleAsync(user, "Worker").Wait();
                 }
             }
 
@@ -85,6 +85,18 @@ namespace HotelBookingRooms.DAL.EF
                     userManager.AddToRoleAsync(user, "User").Wait();
                 }
             }
+        }
+
+        public static void SeedStatuses(ApplicationDbContext<User, Role, int> context)
+        {
+            //if (context.Status.Find("Booked").Result == null)
+            //{
+            //context.Status.Add(new Status() { Name = "Booked" });
+            //}
+            context.Status.Add(new Status() { Name = "Booked" });
+            context.Status.Add(new Status() { Name = "Cancelled" });
+            context.Status.Add(new Status() { Name = "Expected" });
+            context.SaveChanges();
         }
     }
 }
