@@ -12,7 +12,8 @@ namespace HotelBookingRooms.DAL.EF
             // Seed operations
             SeedRoles(roleManager);
             SeedUsers(userManager);
-            SeedStatuses(context);
+            SeedStatusses(context);
+            SeedHotels(context);
         }
 
         public static void SeedRoles(RoleManager<Role> roleManager)
@@ -88,7 +89,7 @@ namespace HotelBookingRooms.DAL.EF
             }
         }
 
-        public static async void SeedStatuses(ApplicationDbContext<User, Role, int> context)
+        public static void SeedStatusses(ApplicationDbContext<User, Role, int> context)
         {
             if(context.Status.Any(r => r.Name == "Booked") == false)
             {
@@ -101,6 +102,23 @@ namespace HotelBookingRooms.DAL.EF
             if (context.Status.Any(r => r.Name == "Expected") == false)
             {
                 context.Status.Add(new Status() { Name = "Expected" });
+            }
+            context.SaveChanges();
+        }
+
+        public static void SeedHotels(ApplicationDbContext<User, Role, int> context)
+        {
+            if (context.Hotel.Any(r => r.Name == "Hotel1") == false)
+            {
+                context.Hotel.Add(new Hotel() { Name = "Hotel1" });
+            }
+            if (context.Hotel.Any(r => r.Name == "Hotel2") == false)
+            {
+                context.Hotel.Add(new Hotel() { Name = "Hotel2" });
+            }
+            if (context.Hotel.Any(r => r.Name == "Hotel3") == false)
+            {
+                context.Hotel.Add(new Hotel() { Name = "Hotel3" });
             }
             context.SaveChanges();
         }
