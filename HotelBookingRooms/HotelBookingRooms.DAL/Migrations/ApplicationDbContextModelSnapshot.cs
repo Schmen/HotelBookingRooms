@@ -166,8 +166,6 @@ namespace HotelBookingRooms.DAL.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
-                    b.Property<string>("Address");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 

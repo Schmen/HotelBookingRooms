@@ -15,7 +15,7 @@ namespace HotelBookingRooms.DAL.EF
             SeedUsers(userManager);
             SeedStatusses(context);
             SeedHotels(context);
-            //SeedRoomTypes(context);
+            SeedRoomTypes(context);
         }
 
         public static void SeedRoles(RoleManager<Role> roleManager)
@@ -127,32 +127,29 @@ namespace HotelBookingRooms.DAL.EF
 
         public static void SeedRoomTypes(ApplicationDbContext<User, Role, int> context)
         {
-            //If there is already any date of RoomType
-            if (context.RoomType.Any()) return;
+            ////If there is already any date of RoomType
+            //if (context.RoomType.Any()) return;
             List<RoomType> roomTypes = new List<RoomType>()
             {
-                new RoomType(){HotelId = 1, Area = "10 m2" , PriceStandardNumber = 200, PriceSeasonNumber = 250 , Bathroom = true, NumberOfBeds = 1, NumberOfPeople = 1 }, // Jedynka dla jednego goscia z pojedynczym lozkiem.
-                new RoomType(){HotelId = 1, Area = "15 m2", PriceStandardNumber = 250, PriceSeasonNumber = 300, Bathroom = true, NumberOfBeds = 2, NumberOfPeople = 1 }, // Podwojny dla jednej osoby. Posiada dwa lozka, przeznaczone dla jednej osoby?
-                new RoomType(){HotelId = 1, Area = "20 m2", PriceStandardNumber = 300, PriceSeasonNumber = 350 , Bathroom = true, NumberOfBeds = 1, NumberOfPeople = 2 }, // Podwojny to pokoj dla dwoch osob z dwoma osobnymi lozkami
-                new RoomType(){HotelId = 1, Area = "20 m2", PriceStandardNumber = 350, PriceSeasonNumber = 400, Bathroom = true, NumberOfBeds = 1, NumberOfPeople = 2 }, // Dwojka pokoj dwuosobowy z jednym dwuosobowym lozkiem.
-                new RoomType(){HotelId = 1, Area = "30 m2", PriceStandardNumber = 400, PriceSeasonNumber = 450, Bathroom = true, NumberOfBeds = 3, NumberOfPeople = 3 }, // Trojka dla 3 osob z 3 lozkami pojedynczymi.
-                new RoomType(){HotelId = 1, Area = "40 m2", PriceStandardNumber = 450, PriceSeasonNumber = 500, Bathroom = true, NumberOfBeds = 4, NumberOfPeople = 4 }, // Czworka dla 4 osob z 4 pojedynczymi lozkami.
+                new RoomType(){Name="Single", Description = "Room for one person with single bed", HotelId = 1, Area = "10 m2" , PriceStandardNumber = 200, PriceSeasonNumber = 250,  NumberOfBeds = 1, NumberOfPeople = 1 },
+                new RoomType(){Name="Twin for sole us", Description = "Room for one person with two beds", HotelId = 1, Area = "15 m2", PriceStandardNumber = 250, PriceSeasonNumber = 300,  NumberOfBeds = 2, NumberOfPeople = 1 }, 
+                new RoomType(){Name="Double Room", Description = "Room for two people with one bed", HotelId = 1, Area = "20 m2", PriceStandardNumber = 350, PriceSeasonNumber = 400,   NumberOfBeds = 1, NumberOfPeople = 2 },
+                new RoomType(){Name="Triple", Description = "Room for three people with three single beds", HotelId = 1, Area = "30 m2", PriceStandardNumber = 400, PriceSeasonNumber = 450,  NumberOfBeds = 3, NumberOfPeople = 3 }, 
+                new RoomType(){Name="Quad", Description = "Room for four people with four single beds", HotelId = 1, Area = "40 m2", PriceStandardNumber = 450, PriceSeasonNumber = 500,  NumberOfBeds = 4, NumberOfPeople = 4 },
 
-                new RoomType(){HotelId = 2, Area = "10 m2" , PriceStandardNumber = 200, PriceSeasonNumber = 250 , Bathroom = true, NumberOfBeds = 1, NumberOfPeople = 1 }, // Jedynka dla jednego goscia z pojedynczym lozkiem.
-                new RoomType(){HotelId = 2, Area = "15 m2", PriceStandardNumber = 250, PriceSeasonNumber = 300, Bathroom = true, NumberOfBeds = 2, NumberOfPeople = 1 }, // Podwojny dla jednej osoby. Posiada dwa lozka, przeznaczone dla jednej osoby?
-                new RoomType(){HotelId = 2, Area = "20 m2", PriceStandardNumber = 300, PriceSeasonNumber = 350 , Bathroom = true, NumberOfBeds = 1, NumberOfPeople = 2 }, // Podwojny to pokoj dla dwoch osob z dwoma osobnymi lozkami
-                new RoomType(){HotelId = 2, Area = "20 m2", PriceStandardNumber = 350, PriceSeasonNumber = 400, Bathroom = true, NumberOfBeds = 1, NumberOfPeople = 2 }, // Dwojka pokoj dwuosobowy z jednym dwuosobowym lozkiem.
-                new RoomType(){HotelId = 2, Area = "30 m2", PriceStandardNumber = 400, PriceSeasonNumber = 450, Bathroom = true, NumberOfBeds = 3, NumberOfPeople = 3 }, // Trojka dla 3 osob z 3 lozkami pojedynczymi.
-                new RoomType(){HotelId = 2, Area = "40 m2", PriceStandardNumber = 450, PriceSeasonNumber = 500, Bathroom = true, NumberOfBeds = 4, NumberOfPeople = 4 }, // Czworka dla 4 osob z 4 pojedynczymi lozkami.
+                new RoomType(){Name="Single", Description = "Room for one person with single bed", HotelId = 2, Area = "10 m2" , PriceStandardNumber = 200, PriceSeasonNumber = 250,  NumberOfBeds = 1, NumberOfPeople = 1 },
+                new RoomType(){Name="Twin for sole us", Description = "Room for one person with two beds", HotelId = 2, Area = "15 m2", PriceStandardNumber = 250, PriceSeasonNumber = 300,  NumberOfBeds = 2, NumberOfPeople = 1 },
+                new RoomType(){Name="Double Room", Description = "Room for two people with one bed", HotelId = 2, Area = "20 m2", PriceStandardNumber = 350, PriceSeasonNumber = 400,   NumberOfBeds = 1, NumberOfPeople = 2 },
+                new RoomType(){Name="Triple", Description = "Room for three people with three single beds", HotelId = 2, Area = "30 m2", PriceStandardNumber = 400, PriceSeasonNumber = 450,  NumberOfBeds = 3, NumberOfPeople = 3 },
+                new RoomType(){Name="Quad", Description = "Room for four people with four single beds", HotelId = 2, Area = "40 m2", PriceStandardNumber = 450, PriceSeasonNumber = 500,  NumberOfBeds = 4, NumberOfPeople = 4 },
 
-                new RoomType(){HotelId = 3, Area = "10 m2" , PriceStandardNumber = 200, PriceSeasonNumber = 250 , Bathroom = true, NumberOfBeds = 1, NumberOfPeople = 1 }, // Jedynka dla jednego goscia z pojedynczym lozkiem.
-                new RoomType(){HotelId = 3, Area = "15 m2", PriceStandardNumber = 250, PriceSeasonNumber = 300, Bathroom = true, NumberOfBeds = 2, NumberOfPeople = 1 }, // Podwojny dla jednej osoby. Posiada dwa lozka, przeznaczone dla jednej osoby?
-                new RoomType(){HotelId = 3, Area = "20 m2", PriceStandardNumber = 300, PriceSeasonNumber = 350 , Bathroom = true, NumberOfBeds = 1, NumberOfPeople = 2 }, // Podwojny to pokoj dla dwoch osob z dwoma osobnymi lozkami
-                new RoomType(){HotelId = 3, Area = "20 m2", PriceStandardNumber = 350, PriceSeasonNumber = 400, Bathroom = true, NumberOfBeds = 1, NumberOfPeople = 2 }, // Dwojka pokoj dwuosobowy z jednym dwuosobowym lozkiem.
-                new RoomType(){HotelId = 3, Area = "30 m2", PriceStandardNumber = 400, PriceSeasonNumber = 450, Bathroom = true, NumberOfBeds = 3, NumberOfPeople = 3 }, // Trojka dla 3 osob z 3 lozkami pojedynczymi.
-                new RoomType(){HotelId = 3, Area = "40 m2", PriceStandardNumber = 450, PriceSeasonNumber = 500, Bathroom = true, NumberOfBeds = 4, NumberOfPeople = 4 }, // Czworka dla 4 osob z 4 pojedynczymi lozkami.
+                new RoomType(){Name="Single", Description = "Room for one person with single bed", HotelId = 3, Area = "10 m2" , PriceStandardNumber = 200, PriceSeasonNumber = 250,  NumberOfBeds = 1, NumberOfPeople = 1 },
+                new RoomType(){Name="Twin for sole us", Description = "Room for one person with two beds", HotelId = 3, Area = "15 m2", PriceStandardNumber = 250, PriceSeasonNumber = 300,  NumberOfBeds = 2, NumberOfPeople = 1 },
+                new RoomType(){Name="Double Room", Description = "Room for two people with one bed", HotelId = 3, Area = "20 m2", PriceStandardNumber = 350, PriceSeasonNumber = 400,   NumberOfBeds = 1, NumberOfPeople = 2 },
+                new RoomType(){Name="Triple", Description = "Room for three people with three single beds", HotelId = 3, Area = "30 m2", PriceStandardNumber = 400, PriceSeasonNumber = 450,  NumberOfBeds = 3, NumberOfPeople = 3 },
+                new RoomType(){Name="Quad", Description = "Room for four people with four single beds", HotelId = 3, Area = "40 m2", PriceStandardNumber = 450, PriceSeasonNumber = 500,  NumberOfBeds = 4, NumberOfPeople = 4 },
             };
-            foreach(var roomType in roomTypes)
+            foreach (var roomType in roomTypes)
             {
                 context.Add(roomType);
             }

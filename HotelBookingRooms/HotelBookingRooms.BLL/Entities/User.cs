@@ -6,8 +6,8 @@ namespace HotelBookingRooms.BLL.Entities
     {
         public string Name { get; set; }
         public string LastName { get; set; }
-        public string Address { get; set; }
+        //public string Address { get; set; }
         public string DocumentType { get; set; }
-        public  int DocumentNumber { get; set; }
+        public int DocumentNumber { get; set; }
     }
 }

@@ -162,7 +162,7 @@ namespace HotelBookingRooms.Web
 
             app.UseSession();
             var dbContext = Services.BuildServiceProvider().GetRequiredService< ApplicationDbContext<User, Role, int>>();
-            dbContext.Database.Migrate();
+            //dbContext.Database.Migrate();
             var userManager = Services.BuildServiceProvider().GetRequiredService<UserManager<User>>();
             var roleManager = Services.BuildServiceProvider().GetRequiredService<RoleManager<Role>>();
             Seed.RunSeed(dbContext, roleManager, userManager);

@@ -14,11 +14,11 @@ namespace HotelBookingRooms.BLL.Entities
 
         [ForeignKey("Hotel")]
         public int HotelId { get; set; }
-        
+
         [StringLength(40)]
         [Required(ErrorMessage = "Room name is required")]
         public string Name { get; set; }
-        
+
         [Required(ErrorMessage = "Area is required")]
         [StringLength(60)]
         public string Area { get; set; }
