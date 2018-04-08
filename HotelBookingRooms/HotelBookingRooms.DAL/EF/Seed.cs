@@ -16,6 +16,7 @@ namespace HotelBookingRooms.DAL.EF
             SeedStatusses(context);
             SeedHotels(context);
             SeedRoomTypes(context);
+            SeedRooms(context);
         }
 
         public static void SeedRoles(RoleManager<Role> roleManager)
@@ -128,9 +129,10 @@ namespace HotelBookingRooms.DAL.EF
         public static void SeedRoomTypes(ApplicationDbContext<User, Role, int> context)
         {
             ////If there is already any date of RoomType
-            //if (context.RoomType.Any()) return;
+            if (context.RoomType.Any()) return;
             List<RoomType> roomTypes = new List<RoomType>()
             {
+                // each RoomType belongs to the specified hotel
                 new RoomType(){Name="Single", Description = "Room for one person with single bed", HotelId = 1, Area = "10 m2" , PriceStandardNumber = 200, PriceSeasonNumber = 250,  NumberOfBeds = 1, NumberOfPeople = 1 },
                 new RoomType(){Name="Twin for sole us", Description = "Room for one person with two beds", HotelId = 1, Area = "15 m2", PriceStandardNumber = 250, PriceSeasonNumber = 300,  NumberOfBeds = 2, NumberOfPeople = 1 }, 
                 new RoomType(){Name="Double Room", Description = "Room for two people with one bed", HotelId = 1, Area = "20 m2", PriceStandardNumber = 350, PriceSeasonNumber = 400,   NumberOfBeds = 1, NumberOfPeople = 2 },
@@ -155,5 +157,37 @@ namespace HotelBookingRooms.DAL.EF
             }
             context.SaveChanges();
         }
+
+        public static void SeedRooms(ApplicationDbContext<User, Role, int> context)
+        {
+            if (context.Room.Any()) return;
+            List<Room> rooms = new List<Room>()
+            {
+                new Room(){RoomNumber = 1, FloorNumber = 0, RoomTypeID = 1},
+                new Room(){RoomNumber = 2, FloorNumber = 0, RoomTypeID = 2},
+                new Room(){RoomNumber = 3, FloorNumber = 1, RoomTypeID = 3},
+                new Room(){RoomNumber = 4, FloorNumber = 1, RoomTypeID = 4},
+                new Room(){RoomNumber = 5, FloorNumber = 1, RoomTypeID = 5},
+
+                new Room(){RoomNumber = 1, FloorNumber = 0, RoomTypeID = 6},
+                new Room(){RoomNumber = 2, FloorNumber = 0, RoomTypeID = 7},
+                new Room(){RoomNumber = 3, FloorNumber = 1, RoomTypeID = 8},
+                new Room(){RoomNumber = 4, FloorNumber = 1, RoomTypeID = 9},
+                new Room(){RoomNumber = 5, FloorNumber = 1, RoomTypeID = 10},
+
+                new Room(){RoomNumber = 1, FloorNumber = 0, RoomTypeID = 11},
+                new Room(){RoomNumber = 2, FloorNumber = 0, RoomTypeID = 12},
+                new Room(){RoomNumber = 3, FloorNumber = 1, RoomTypeID = 13},
+                new Room(){RoomNumber = 4, FloorNumber = 1, RoomTypeID = 14},
+                new Room(){RoomNumber = 5, FloorNumber = 1, RoomTypeID = 15},
+            };
+            foreach (var room in rooms)
+            {
+                context.Add(room);
+            }
+            context.SaveChanges();
+        }
+
+
     }
 }
