@@ -33,7 +33,7 @@ namespace HotelBookingRooms.BLL.Entities
 
         [Required(ErrorMessage = "Status is required")]
         [ForeignKey("Status")]
-        public int StatusId { get; set; }
+        public int? StatusId { get; set; }
         public virtual Status Status { get; set; }
 
     }
