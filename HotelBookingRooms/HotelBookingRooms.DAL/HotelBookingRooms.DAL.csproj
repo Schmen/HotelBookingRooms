@@ -13,6 +13,7 @@
     <Compile Remove="Migrations\20180404143642_m1.cs" />
     <Compile Remove="Migrations\20180404143956_m3.cs" />
     <Compile Remove="Migrations\20180405183319_Add_DataAnnotations.cs" />
+    <Compile Remove="Migrations\20180408205805_m12.cs" />
   </ItemGroup>
 
   <ItemGroup>

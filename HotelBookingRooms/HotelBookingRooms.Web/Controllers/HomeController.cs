@@ -1,4 +1,5 @@
 ﻿using DataAccessLayer.Core.Interfaces.UoW;
+using HotelBookingRooms.BLL.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -11,7 +12,8 @@ namespace HotelBookingRooms.Web.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            var hotels = Uow.Repository<Hotel>().GetRange(h => h.Name != "Hotel1");
+            return View(hotels);
         }
 
         public IActionResult About()
@@ -27,5 +29,7 @@ namespace HotelBookingRooms.Web.Controllers
 
             return View();
         }
+
+
     }
 }

@@ -50,7 +50,8 @@ namespace HotelBookingRooms.DAL.Migrations
 
                     b.Property<int>("RoomId");
 
-                    b.Property<int>("StatusId");
+                    b.Property<int?>("StatusId")
+                        .IsRequired();
 
                     b.Property<int>("UserId");
 
