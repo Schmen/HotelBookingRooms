@@ -10,13 +10,13 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            ID rezerwacji
+            No reservation
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Id)
         </dd>
         <dt>
-            Nazwa hotelu
+            Hotel name
         </dt>
         <dd>
             @Html.DisplayNameFor(model => model.Name)
@@ -29,8 +29,8 @@
 
         <div class="form-actions no-color">
             <input type="submit" value="Usuń" class="btn btn-danger"
-                   onclick="return confirm('Czy na pewno chcesz usunąć?')" />
-            @Html.ActionLink("Wróć", "Index", null, new { @class = "btn btn-warning" })
+                   onclick="return confirm('Are you sure you want to delete?')" />
+            @Html.ActionLink("Back", "Index", null, new { @class = "btn btn-primary" })
         </div>
     }
 </div>

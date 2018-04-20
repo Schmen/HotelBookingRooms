@@ -47,13 +47,13 @@ namespace HotelBookingRooms.Web.Controllers
         }
 
         //[HttpPost]
-        public IActionResult Delete(int Id)
+        public IActionResult Delete(int? Id)
         {
             if(Id == null)
             {
                 return NotFound();
             }
-            var deleteHotel = Uow.Repository<Hotel>().Get(Id);
+            var deleteHotel = Uow.Repository<Hotel>().Get((int)Id);
             if(deleteHotel == null)
             {
                 return NotFound();
@@ -62,9 +62,9 @@ namespace HotelBookingRooms.Web.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
-        public IActionResult DeleteConfirmed(int Id)
+        public IActionResult DeleteConfirmed(int? Id)
         {
-            var deleteHotel = Uow.Repository<Hotel>().Get(Id);
+            var deleteHotel = Uow.Repository<Hotel>().Get((int)Id);
             if (deleteHotel == null)
             {
                 return NotFound();

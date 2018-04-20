@@ -1,0 +1,65 @@
+﻿@model RoomRoomTypeVm 
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<table class="table table-striped">
+    <tr>
+        <th>
+            Hotel name
+        </th>
+        <th>
+            No Room
+        </th>
+        <th>
+            Floor number
+        </th>
+        <th>
+            Number of beds
+        </th>
+        <th>
+            Price Season Number
+        </th>
+        <th>
+            Price standard number
+        <th>
+            Area
+        </th>
+        <th>
+            Description
+        </th>
+    </tr>
+
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => Model.Hotel.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.Room.RoomNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.Room.FloorNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.RoomType.NumberOfBeds)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.RoomType.NumberOfPeople)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.RoomType.PriceSeasonNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.RoomType.PriceStandardNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.RoomType.Area)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.RoomType.Description)
+        </td>
+    </tr>
+    
+</table>
