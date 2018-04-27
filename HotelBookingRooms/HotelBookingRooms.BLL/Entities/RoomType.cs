@@ -8,7 +8,6 @@ namespace HotelBookingRooms.BLL.Entities
 {
     public class RoomType
     {
-
         [Key]
         public int  Id { get; set; }
 

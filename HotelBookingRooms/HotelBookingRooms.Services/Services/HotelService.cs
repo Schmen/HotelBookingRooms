@@ -8,7 +8,7 @@ using System.Text;
 
 namespace HotelBookingRooms.Services.Services
 {
-    class HotelService: IHotel
+    public class HotelService: IHotel
     {
         ApplicationDbContext<User, Role, int> _db;
 

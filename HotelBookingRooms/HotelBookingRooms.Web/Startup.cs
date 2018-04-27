@@ -17,6 +17,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using RoomBookingRooms.Services.Services;
 
 namespace HotelBookingRooms.Web
 {
@@ -128,6 +129,9 @@ namespace HotelBookingRooms.Web
             services.AddScoped<DbContextOptions<ApplicationDbContext<User, Role, int>>>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddTransient<IEmailSender, EmailSender>();
+            services.AddScoped<IRoomService, RoomService>();
+
+
             var mappingConfig = new AutoMapper.MapperConfiguration(cfg =>
             {
                 cfg.Mapping(services.BuildServiceProvider().GetService<UserManager<User>>());

@@ -13,6 +13,9 @@
             Hotel name
         </th>
         <th>
+            ID room type
+        </th>
+        <th>
             No Room
         </th>
         <th>
@@ -28,6 +31,9 @@
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.RoomType.Hotel.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RoomType.Id)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.RoomNumber)

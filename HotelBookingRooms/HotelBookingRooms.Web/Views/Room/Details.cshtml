@@ -1,5 +1,4 @@
-﻿@model RoomRoomTypeVm 
-@{
+﻿@model HotelBookingRooms.BLL.Entities.Room
     ViewData["Title"] = "Details";
 }
 
@@ -34,13 +33,13 @@
 
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => Model.Hotel.Name)
+            @Html.DisplayFor(modelItem => Model.RoomType.Hotel)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => Model.Room.RoomNumber)
+            @Html.DisplayFor(modelItem => Model.RoomNumber)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => Model.Room.FloorNumber)
+            @Html.DisplayFor(modelItem => Model.FloorNumber)
         </td>
         <td>
             @Html.DisplayFor(modelItem => Model.RoomType.NumberOfBeds)
