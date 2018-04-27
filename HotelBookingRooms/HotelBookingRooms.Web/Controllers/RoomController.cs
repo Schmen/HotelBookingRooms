@@ -23,7 +23,7 @@ namespace HotelBookingRooms.Web.Controllers
 
         public IActionResult Index()
         {
-            var rooms = IRoomService.GetAllRooms();
+            var rooms = IRoomService.GetRooms();
             return View(rooms);
         }
 
