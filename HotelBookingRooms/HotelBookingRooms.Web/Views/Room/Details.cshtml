@@ -1,66 +1,72 @@
 ﻿@model HotelBookingRooms.BLL.Entities.Room
-    @{
-        ViewData["Title"] = "Details";
-    }
 
+@{
+    ViewData["Title"] = "Details";
+}
 
-    <h2>Details</h2>
+<h2>Details</h2>
 
-    <table class="table table-striped">
-        <tr>
-            <th>
-                Hotel name
-            </th>
-            <th>
-                No Room
-            </th>
-            <th>
-                Floor number
-            </th>
-            <th>
-                Number of beds
-            </th>
-            <th>
-                Price Season Number
-            </th>
-            <th>
-                Price standard number
-            <th>
-                Area
-            </th>
-            <th>
-                Description
-            </th>
-        </tr>
-
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => Model.RoomType.Hotel)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => Model.RoomNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => Model.FloorNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => Model.RoomType.NumberOfBeds)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => Model.RoomType.NumberOfPeople)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => Model.RoomType.PriceSeasonNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => Model.RoomType.PriceStandardNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => Model.RoomType.Area)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => Model.RoomType.Description)
-            </td>
-        </tr>
-
-    </table>
+<div>
+    <h4>Room</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.RoomType.Hotel.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RoomType.Hotel.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RoomNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RoomNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FloorNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FloorNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RoomType.NumberOfBeds)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RoomType.NumberOfBeds)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RoomType.NumberOfPeople)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RoomType.NumberOfPeople)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RoomType.PriceSeasonNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RoomType.PriceSeasonNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RoomType.PriceStandardNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RoomType.PriceStandardNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RoomType.Area)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RoomType.Area)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RoomType.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RoomType.Description)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -130,6 +130,7 @@ namespace HotelBookingRooms.Web
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddScoped<IRoomService, RoomService>();
+            services.AddScoped<IRoomTypeService, RoomTypeService>();
 
 
             var mappingConfig = new AutoMapper.MapperConfiguration(cfg =>
