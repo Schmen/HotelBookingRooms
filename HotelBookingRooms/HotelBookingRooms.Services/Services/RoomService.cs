@@ -46,13 +46,8 @@ namespace RoomBookingRooms.Services.Services
                 newRoom.Id = Room.Id;
                 newRoom.FloorNumber = Room.FloorNumber;
                 newRoom.RoomNumber = Room.RoomNumber;
-                newRoom.RoomType.Name = Room.RoomType.Name;
-                newRoom.RoomType.Area = Room.RoomType.Area;
-                newRoom.RoomType.PriceStandardNumber = Room.RoomType.PriceStandardNumber;
-                newRoom.RoomType.NumberOfPeople = Room.RoomType.NumberOfPeople;
-                newRoom.RoomType.NumberOfBeds = Room.RoomType.NumberOfBeds;
-                newRoom.RoomType.Description = Room.RoomType.Description;
-                newRoom.RoomType.Hotel.Name = Room.RoomType.Hotel.Name;
+                newRoom.RoomTypeID = Room.RoomTypeID;
+                _uow.Repository<Room>().Update(newRoom);
                 _uow.Save();
                 return true;
             }

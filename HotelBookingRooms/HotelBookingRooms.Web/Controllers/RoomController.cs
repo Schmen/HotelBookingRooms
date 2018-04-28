@@ -81,17 +81,14 @@ namespace HotelBookingRooms.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                try
+                if(IRoomService.EditRoom((int)id, room) == true)
                 {
-                    IRoomService.EditRoom((int)id, room);
                     return RedirectToAction("Edit",(int)id);
                 }
-                catch (DbUpdateException /* ex */)
+                else
                 {
-                    //Log the error (uncomment ex variable name and write a log.)
-                    ModelState.AddModelError("", "Unable to save changes. " +
-                        "Try again, and if the problem persists, " +
-                        "see your system administrator.");
+                    return View((int)id);
+                    // Make sth ?
                 }
             }
 
