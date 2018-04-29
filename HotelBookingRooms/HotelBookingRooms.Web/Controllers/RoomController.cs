@@ -15,13 +15,15 @@ namespace HotelBookingRooms.Web.Controllers
 {
     public class RoomController : Controller
     {
+        private readonly IHotelService IHotelService;
         private readonly IRoomService IRoomService;
         private readonly IRoomTypeService IRoomTypeService;
 
-        public RoomController(IRoomService IRoomService, IRoomTypeService IRoomTypeService)
+        public RoomController(IRoomService IRoomService, IRoomTypeService IRoomTypeService, IHotelService IHotelService)
         {
             this.IRoomService = IRoomService;
             this.IRoomTypeService = IRoomTypeService;
+            this.IHotelService = IHotelService;
         }
 
         public IActionResult Index()
@@ -30,6 +32,24 @@ namespace HotelBookingRooms.Web.Controllers
             return View(rooms);
         }
 
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            ViewBag.Hotels = IHotelService.GetHotels().ToList();
+            var newRoom = new CreateRoomVM();
+            return View(newRoom);
+        }
+
+        [HttpPost]
+        public IActionResult Create([Bind("RoomNumber, FloorNumber, RoomTypeId, HotelId")] CreateRoomVM room)
+        {
+            if(IRoomService.AddRoom(room))
+            {
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
 
         public IActionResult Details(int? id)
         {
@@ -91,8 +111,18 @@ namespace HotelBookingRooms.Web.Controllers
                     // Make sth ?
                 }
             }
-
             return View(room);
+        }
+
+        public JsonResult GetRoomTypesList(int id)
+        {
+            var RoomTypeList = IRoomTypeService
+                                 .GetRoomTypesForSpecificHotel(id)
+                                    .ToList();
+
+            RoomTypeList.Insert(0, new RoomType { Id = 0, Name = "Please select roomtype" });
+            var selectedList = new SelectList(RoomTypeList, "Id", "Name");
+            return Json(selectedList);
         }
     }
 }

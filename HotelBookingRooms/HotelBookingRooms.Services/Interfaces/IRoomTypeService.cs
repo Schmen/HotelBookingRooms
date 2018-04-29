@@ -8,7 +8,7 @@ namespace HotelBookingRooms.Services.Interfaces
     public interface IRoomTypeService
     {
         RoomType GetRoomType(int id);
-        bool AddtRoomType(RoomType room);
+        bool AddRoomType(RoomType room);
         bool EditRoomType(int id, RoomType room);
         bool DeleteRoomType(int id);
         IEnumerable<RoomType> GetRoomTypes();

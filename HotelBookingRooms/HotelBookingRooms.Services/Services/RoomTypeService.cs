@@ -2,6 +2,7 @@
 using HotelBookingRooms.BLL.Entities;
 using HotelBookingRooms.DAL.EF;
 using HotelBookingRooms.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,12 +23,7 @@ namespace HotelBookingRooms.Services.Services
             this._db = db;
         }
 
-        public bool AddtRoomType(Room room)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool AddtRoomType(RoomType room)
+        public bool AddRoomType(RoomType room)
         {
             throw new NotImplementedException();
         }
@@ -37,19 +33,14 @@ namespace HotelBookingRooms.Services.Services
             throw new NotImplementedException();
         }
 
-        public bool EditRoomType(int id, Room room)
-        {
-            throw new NotImplementedException();
-        }
-
         public bool EditRoomType(int id, RoomType room)
         {
             throw new NotImplementedException();
         }
 
-        public Room GetRoomType(int id)
+        public RoomType GetRoomType(int id)
         {
-            throw new NotImplementedException();
+            return _db.RoomType.SingleOrDefault(r => r.Id == id);
         }
 
         public IEnumerable<RoomType> GetRoomTypes()
@@ -57,15 +48,17 @@ namespace HotelBookingRooms.Services.Services
             return _db.RoomType;
         }
 
-        public IEnumerable<RoomType> GetRoomTypesForSpecificHotel(int hotelId)
+        public IEnumerable<RoomType> GetRoomTypesForSpecificHotel(int id)
         {
-            var roomTypes = _db.RoomType.Where(r => r.HotelId == hotelId);
-            return roomTypes;
-        }
-
-        RoomType IRoomTypeService.GetRoomType(int id)
-        {
-            throw new NotImplementedException();
+            try
+            {
+                var results = _db.RoomType.Where(r => r.HotelId == id);
+                return results;
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
         }
     }
 }

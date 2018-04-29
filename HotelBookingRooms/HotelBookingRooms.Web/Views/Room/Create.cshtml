@@ -1,0 +1,83 @@
+﻿@model HotelBookingRooms.ViewModels.CreateRoomVM
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+<h2>Create Room</h2>
+
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="HotelId" class="control-label"></label>
+                    <select class="form-control" id="HotelId" asp-for="HotelId" asp-items='@(new SelectList(ViewBag.Hotels,"Id", "Name"))'>
+                        <option>Select Hotel</option>
+                    </select>
+                    <span asp-validation-for="HotelId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="RoomTypeId" class="control-label"></label>
+                    <select class="form-control" id="RoomTypeId" asp-for="RoomTypeId" asp-items='@(new SelectList(String.Empty,"Id", "Name"))'>
+                    </select>
+                    <span asp-validation-for="RoomTypeId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="RoomNumber" class="control-label"></label>
+                    <input asp-for="RoomNumber" class="form-control" />
+                    <span asp-validation-for="RoomNumber" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="FloorNumber" class="control-label"></label>
+                    <input asp-for="FloorNumber" class="form-control" />
+                    <span asp-validation-for="FloorNumber" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+
+
+@*<select id="HotelId" name="HotelList" asp-for="Id" asp-items='@(new SelectList(ViewBag.Hotels,"Id", "Name"))'>
+    <option>Select Hotel Name</option>
+
+</select>
+
+<select id="RoomTypeId" name="RoomTypesList" asp-for="Id" asp-items='@(new SelectList(String.Empty,"Id", "Name"))'></select>*@
+
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+
+<script>
+    $(function () {
+        $("#HotelId").change(function () {
+
+            var url = '@Url.Content("~/")' + "Room/GetRoomTypesList";
+            var ddlsource = "#HotelId";
+            $.getJSON(url, { id: $(ddlsource).val() }, function (data) {
+                var items = '';
+                $("#RoomTypeId").empty();
+                $.each(data, function (i, row) {
+                    items += "<option value='" + row.value + "'>" + row.text + "</option>";
+                });
+                $("#RoomTypeId").html(items);
+            })
+        });
+    });
+
+
+</script>

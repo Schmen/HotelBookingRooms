@@ -88,9 +88,26 @@ namespace RoomBookingRooms.Services.Services
 
 
 
-        public bool AddRoom(Room room)
+        public bool AddRoom(CreateRoomVM vm)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Room room = new Room()
+                {
+                    RoomNumber = vm.RoomNumber,
+                    FloorNumber = vm.FloorNumber,
+                    RoomType = _db.RoomType.SingleOrDefault(rt => rt.Id == vm.RoomTypeId)
+                };
+                //room.RoomType.HotelId = (int)vm.HotelId; // Dont need HotelId cause I got this id from roomtype property
+
+                _db.Room.Add(room);
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
     }
 }

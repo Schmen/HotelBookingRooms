@@ -152,6 +152,7 @@ namespace HotelBookingRooms.DAL.EF
                 new RoomType(){Name="Double Room", Description = "Room for two people with one bed", HotelId = 3, Area = "20 m2", PriceStandardNumber = 350, PriceSeasonNumber = 400,   NumberOfBeds = 1, NumberOfPeople = 2 },
                 new RoomType(){Name="Triple", Description = "Room for three people with three single beds", HotelId = 3, Area = "30 m2", PriceStandardNumber = 400, PriceSeasonNumber = 450,  NumberOfBeds = 3, NumberOfPeople = 3 },
                 new RoomType(){Name="Quad", Description = "Room for four people with four single beds", HotelId = 3, Area = "40 m2", PriceStandardNumber = 450, PriceSeasonNumber = 500,  NumberOfBeds = 4, NumberOfPeople = 4 },
+                new RoomType(){Name="Dormitory", Description = "Room for ten people with ten single beds", HotelId = 4, Area = "120 m2", PriceStandardNumber = 1100, PriceSeasonNumber = 1200,  NumberOfBeds = 4, NumberOfPeople = 10 },
             };
             foreach (var roomType in roomTypes)
             {

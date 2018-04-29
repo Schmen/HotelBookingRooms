@@ -1,4 +1,5 @@
 ﻿using HotelBookingRooms.BLL.Entities;
+using HotelBookingRooms.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,7 +10,7 @@ namespace HotelBookingRooms.Services.Interfaces
     {
         //IEnumerable<Room> GetRooms();
         Room GetRoom(int id);
-        bool AddRoom(Room room);
+        bool AddRoom(CreateRoomVM room);
         bool EditRoom(int id, Room room);
         bool DeleteRoom(int id);
         IEnumerable<Room> GetRooms();
