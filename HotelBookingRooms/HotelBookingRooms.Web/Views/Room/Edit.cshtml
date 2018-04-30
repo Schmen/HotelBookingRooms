@@ -3,22 +3,38 @@
 @{
     ViewData["Title"] = "Edit";
 }
+<h2>
+    Hotel name: @Model.RoomType.Hotel.Name </br>
+</h2>
+<h2>You edit room with number: @Model.RoomNumber</h2>
 
-<h2>Edit</h2>
 
-<h4>Room</h4>
 <hr />
+
+@if (ViewBag.Error == true)
+{
+    <div class="alert alert-danger" role="alert">
+        Appear error while editing
+    </div>
+}
+else if (ViewBag.Error == false)
+{
+    <div class="alert alert-success" role="alert">
+        You've changed room
+        Now it looks like:
+    </div>
+}
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
 
-            <div class="form-group">
+            @*<div class="form-group">
                 <label asp-for="RoomType.Hotel.Name" class="control-label"></label>
                 <input asp-for="RoomType.Hotel.Name" class="form-control" />
                 <span asp-validation-for="RoomType.Hotel.Name" class="text-danger"></span>
-            </div>
+            </div>*@
             <div class="form-group">
                 <label asp-for="RoomNumber" class="control-label"></label>
                 <input asp-for="RoomNumber" class="form-control" />

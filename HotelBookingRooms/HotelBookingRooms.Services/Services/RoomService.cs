@@ -32,7 +32,7 @@ namespace RoomBookingRooms.Services.Services
                 _uow.Save();
                 return true;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }
@@ -60,28 +60,18 @@ namespace RoomBookingRooms.Services.Services
 
         public Room GetRoom(int id)
         {
-            try
-            {
-                var room = _db.Room
-                        .Include(x => x.RoomType)
-                         .ThenInclude(h => h.Hotel)
-                        .SingleOrDefault(x => x.Id == id);
-                return room;
+            var room = _db.Room
+                    .Include(x => x.RoomType)
+                        .ThenInclude(h => h.Hotel)
+                    .SingleOrDefault(x => x.Id == id);
+            return room;
                 //_uow.Repository<Room>().Get(id);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
         }
 
         
 
         public IEnumerable<Room> GetRooms()
         {
-            // Upgrade biblioteki po majowce
-            // Z ponizszej linijki bd mogl pobrac zagniezdzone dane z tabel
-            //var roomTypes = _uow.Repository<RoomType>().GetRange(null, true, null, null, null, r=>r.Hotel);
             var rooms = _db.Room.Include(x => x.RoomType).ThenInclude(h => h.Hotel).ToList();// _uow.Repository<Room>().GetRange(null, true, null, null, null, r => r.RoomType, h=>h.RoomType.Hotel).ToList() ;
             return rooms;
         }
@@ -104,8 +94,9 @@ namespace RoomBookingRooms.Services.Services
                 _db.SaveChanges();
                 return true;
             }
-            catch (Exception e)
+            catch (Exception)
             {
+                //throw new System.ArgumentException("While adding rooms", "Cannot add room");
                 return false;
             }
         }

@@ -1,0 +1,47 @@
+﻿@model HotelBookingRooms.BLL.Entities.Room
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Hotel Name
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RoomType.Hotel.Name)
+        </dd>
+        <dt>
+            Room Type
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RoomType.Name)
+        </dd>
+        <dt>
+            Room number
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RoomNumber)
+        </dd>
+        <dt>
+            Floor number
+        </dt>
+        <dd>
+            @Html.DisplayNameFor(model => model.FloorNumber)
+        </dd>
+
+    </dl>
+    @using (Html.BeginForm())
+    {
+        @*@Html.AntiForgeryToken()*@
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Usuń" class="btn btn-danger"
+                   onclick="return confirm('Are you sure you want to delete?')" />
+            @Html.ActionLink("Back", "Index", null, new { @class = "btn btn-primary" })
+        </div>
+    }
+</div>

@@ -26,11 +26,46 @@ namespace HotelBookingRooms.Web.Controllers
             this.IHotelService = IHotelService;
         }
 
+        //[HttpPost]
+        public IActionResult Delete(int? Id)
+        {
+            if (Id == null)
+            {
+                return NotFound();
+            }
+            var deleteRoom = IRoomService.GetRoom((int)Id);
+            if (deleteRoom == null)
+            {
+                return NotFound();
+            }
+            return View(deleteRoom);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public IActionResult DeleteConfirmed(int? Id)
+        {
+            var deleteRoom = IRoomService.GetRoom((int)Id);
+            if (deleteRoom == null)
+            {
+                return NotFound();
+            }
+            try
+            {
+                IRoomService.DeleteRoom((int)Id);
+                return RedirectToAction("Index");
+            }
+            catch (Exception)
+            {
+                return RedirectToAction(nameof(Delete), new { id = Id, saveChangesError = true });
+            }
+        }
+
         public IActionResult Index()
         {
             var rooms = IRoomService.GetRooms();
             return View(rooms);
         }
+
 
 
         [HttpGet]
@@ -101,16 +136,20 @@ namespace HotelBookingRooms.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                if(IRoomService.EditRoom((int)id, room) == true)
+                if(IRoomService.EditRoom((int)id, room) == false)
                 {
-                    return RedirectToAction("Edit",(int)id);
-                }
-                else
-                {
-                    return View((int)id);
-                    // Make sth ?
+                    ViewBag.Error = true;
+                    return View(room);
                 }
             }
+
+            room = IRoomService.GetRoom((int)id);
+
+            ViewBag.RoomTypes = IRoomTypeService
+                .GetRoomTypesForSpecificHotel(room.RoomType.HotelId)
+                    .ToList();
+
+            ViewBag.Error = false;
             return View(room);
         }
 
