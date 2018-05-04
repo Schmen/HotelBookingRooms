@@ -1,5 +1,6 @@
 ﻿using HotelBookingRooms.BLL.Entities;
 using HotelBookingRooms.ViewModels;
+using HotelBookingRooms.ViewModels.RoomVM;
 using System;
 using System.Collections.Generic;
 using System.Text;

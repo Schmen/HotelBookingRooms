@@ -6,7 +6,7 @@ using DataAccessLayer.Core.Interfaces.UoW;
 using HotelBookingRooms.BLL.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using HotelBookingRooms.ViewModels;
+using HotelBookingRooms.ViewModels.RoomVM;
 using HotelBookingRooms.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -24,6 +24,30 @@ namespace HotelBookingRooms.Web.Controllers
             this.IRoomService = IRoomService;
             this.IRoomTypeService = IRoomTypeService;
             this.IHotelService = IHotelService;
+        }
+
+        public IActionResult Index()
+        {
+            var rooms = IRoomService.GetRooms();
+            return View(rooms);
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            ViewBag.Hotels = IHotelService.GetHotels().ToList();
+            var newRoom = new CreateRoomVM();
+            return View(newRoom);
+        }
+
+        [HttpPost]
+        public IActionResult Create([Bind("RoomNumber, FloorNumber, RoomTypeId, HotelId")] CreateRoomVM room)
+        {
+            if(IRoomService.AddRoom(room))
+            {
+                return RedirectToAction("Index");
+            }
+            return View();
         }
 
         //[HttpPost]
@@ -58,32 +82,6 @@ namespace HotelBookingRooms.Web.Controllers
             {
                 return RedirectToAction(nameof(Delete), new { id = Id, saveChangesError = true });
             }
-        }
-
-        public IActionResult Index()
-        {
-            var rooms = IRoomService.GetRooms();
-            return View(rooms);
-        }
-
-
-
-        [HttpGet]
-        public IActionResult Create()
-        {
-            ViewBag.Hotels = IHotelService.GetHotels().ToList();
-            var newRoom = new CreateRoomVM();
-            return View(newRoom);
-        }
-
-        [HttpPost]
-        public IActionResult Create([Bind("RoomNumber, FloorNumber, RoomTypeId, HotelId")] CreateRoomVM room)
-        {
-            if(IRoomService.AddRoom(room))
-            {
-                return RedirectToAction("Index");
-            }
-            return View();
         }
 
         public IActionResult Details(int? id)

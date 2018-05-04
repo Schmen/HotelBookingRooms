@@ -1,0 +1,85 @@
+﻿@model HotelBookingRooms.ViewModels.RoomVM.EditRoomTypeVM
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>RoomType</h4>
+<hr />
+
+@if (ViewBag.Error == true)
+{
+    <div class="alert alert-danger" role="alert">
+        Appear error while editing
+    </div>
+}
+else if (ViewBag.Error == false)
+{
+    <div class="alert alert-success" role="alert">
+        You've changed room
+        Now it looks like:
+    </div>
+}
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Id" />*@
+            @*<div class="form-group">
+                <label asp-for="HotelId" class="control-label"></label>
+                <select asp-for="HotelId" class="form-control" asp-items="ViewBag.HotelId"></select>
+                <span asp-validation-for="HotelId" class="text-danger"></span>
+            </div>*@
+            <div class="form-group">
+                <label asp-for="HotelId" class="control-label"></label>
+                <select asp-for="HotelId" class="form-control" asp-items="@(new SelectList(ViewBag.Hotels, "Id","Name"))"></select>
+                <span asp-validation-for="HotelId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Area" class="control-label"></label>
+                <input asp-for="Area" class="form-control" />
+                <span asp-validation-for="Area" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PriceStandardNumber" class="control-label"></label>
+                <input asp-for="PriceStandardNumber" class="form-control" />
+                <span asp-validation-for="PriceStandardNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PriceSeasonNumber" class="control-label"></label>
+                <input asp-for="PriceSeasonNumber" class="form-control" />
+                <span asp-validation-for="PriceSeasonNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NumberOfPeople" class="control-label"></label>
+                <input asp-for="NumberOfPeople" class="form-control" />
+                <span asp-validation-for="NumberOfPeople" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NumberOfBeds" class="control-label"></label>
+                <input asp-for="NumberOfBeds" class="form-control" />
+                <span asp-validation-for="NumberOfBeds" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

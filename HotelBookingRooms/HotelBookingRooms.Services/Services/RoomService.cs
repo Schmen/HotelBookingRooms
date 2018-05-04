@@ -3,6 +3,7 @@ using HotelBookingRooms.BLL.Entities;
 using HotelBookingRooms.DAL.EF;
 using HotelBookingRooms.Services.Interfaces;
 using HotelBookingRooms.ViewModels;
+using HotelBookingRooms.ViewModels.RoomVM;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

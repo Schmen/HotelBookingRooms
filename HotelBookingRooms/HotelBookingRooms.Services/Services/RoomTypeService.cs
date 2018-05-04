@@ -2,6 +2,8 @@
 using HotelBookingRooms.BLL.Entities;
 using HotelBookingRooms.DAL.EF;
 using HotelBookingRooms.Services.Interfaces;
+using HotelBookingRooms.ViewModels;
+using HotelBookingRooms.ViewModels.RoomVM;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -23,29 +25,81 @@ namespace HotelBookingRooms.Services.Services
             this._db = db;
         }
 
-        public bool AddRoomType(RoomType room)
+        public bool AddRoomType(RoomType roomType)
         {
-            throw new NotImplementedException();
+            try
+            {
+                //RoomType type = new RoomType()
+                //{
+                //    Area = vm.RoomNumber,
+                //    Description = vm.FloorNumber,
+                //    HotelId = _db.RoomType.SingleOrDefault(rt => rt.Id == vm.RoomTypeId)
+                //    Name =
+                //    NumberOfBeds =
+                //    NumberOfPeople =
+                //    PriceSeasonNumber =
+                //    PriceStandardNumber =
+                //};
+                //room.RoomType.HotelId = (int)vm.HotelId; // Dont need HotelId cause I got this id from roomtype property
+
+                _db.RoomType.Add(roomType);
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                //throw new System.ArgumentException("While adding rooms", "Cannot add room");
+                return false;
+            }
         }
 
         public bool DeleteRoomType(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var type = _uow.Repository<RoomType>().Get(r => r.Id == id);
+                _uow.Repository<RoomType>().Delete(type);
+                _uow.Save();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
-        public bool EditRoomType(int id, RoomType room)
+        public bool EditRoomType(int id, EditRoomTypeVM roomType)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var newRoom = GetRoomType(id);
+                newRoom.Area = roomType.Area;
+                newRoom.Description = roomType.Description;
+                newRoom.HotelId = roomType.HotelId;
+                newRoom.Name = roomType.Name;
+                newRoom.NumberOfBeds = roomType.NumberOfBeds;
+                newRoom.NumberOfPeople = roomType.NumberOfPeople;
+                newRoom.PriceSeasonNumber = roomType.PriceSeasonNumber;
+                newRoom.PriceStandardNumber = roomType.PriceStandardNumber;
+
+                _uow.Repository<RoomType>().Update(newRoom);
+                _uow.Save();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         public RoomType GetRoomType(int id)
         {
-            return _db.RoomType.SingleOrDefault(r => r.Id == id);
+            return _db.RoomType.Include(r=>r.Hotel).SingleOrDefault(r => r.Id == id);
         }
 
         public IEnumerable<RoomType> GetRoomTypes()
         {
-            return _db.RoomType;
+            return _db.RoomType.Include(r=>r.Hotel);
         }
 
         public IEnumerable<RoomType> GetRoomTypesForSpecificHotel(int id)

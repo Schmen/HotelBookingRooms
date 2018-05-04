@@ -17,5 +17,7 @@ namespace HotelBookingRooms.DAL.EF
         public DbSet<HotelBookingRooms.BLL.Entities.Hotel> Hotel { get; set; }
 
         public DbSet<HotelBookingRooms.BLL.Entities.Room> Room { get; set; }
+
+        public DbSet<HotelBookingRooms.BLL.Entities.RoomType> RoomType { get; set; }
     }
 }
