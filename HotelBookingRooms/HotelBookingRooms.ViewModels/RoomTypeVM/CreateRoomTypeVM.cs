@@ -23,13 +23,13 @@ namespace HotelBookingRooms.ViewModels.RoomTypeVM
         [StringLength(40)]
         [Required(ErrorMessage = "PriceStandardNumber is required")]
         [DataType(DataType.Currency)]
-        public decimal PriceStandardNumber { get; set; }
+        public string PriceStandardNumber { get; set; }
 
         [StringLength(40)]
         [Required(ErrorMessage = "PriceSeasonNumber is required")]
         [Range(1, 100)]
         [DataType(DataType.Currency)]
-        public decimal PriceSeasonNumber { get; set; }
+        public string PriceSeasonNumber { get; set; }
 
         [Required(ErrorMessage = "NumberOfPeople is required")]
         public int NumberOfPeople { get; set; }

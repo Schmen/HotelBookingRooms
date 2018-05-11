@@ -132,12 +132,13 @@ namespace HotelBookingRooms.Web.Controllers
                 return NotFound();
             }
 
+            ViewBag.Error = true;
+
             if (ModelState.IsValid)
             {
-                if(IRoomService.EditRoom((int)id, room) == false)
+                if (IRoomService.EditRoom((int)id, room) == true)
                 {
-                    ViewBag.Error = true;
-                    return View(room);
+                    ViewBag.Error = false;
                 }
             }
 
@@ -147,7 +148,6 @@ namespace HotelBookingRooms.Web.Controllers
                 .GetRoomTypesForSpecificHotel(room.RoomType.HotelId)
                     .ToList();
 
-            ViewBag.Error = false;
             return View(room);
         }
 

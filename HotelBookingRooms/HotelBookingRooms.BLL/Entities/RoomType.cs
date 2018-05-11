@@ -22,11 +22,11 @@ namespace HotelBookingRooms.BLL.Entities
         [StringLength(60)]
         public string Area { get; set; }
 
-        [StringLength(40)]
+        //[StringLength(40)]
         [Required(ErrorMessage = "PriceStandardNumber is required")]
         public decimal PriceStandardNumber { get; set; }
 
-        [StringLength(40)]
+        //[StringLength(40)]
         [Required(ErrorMessage = "PriceSeasonNumber is required")]
         public decimal PriceSeasonNumber { get; set; }
         
