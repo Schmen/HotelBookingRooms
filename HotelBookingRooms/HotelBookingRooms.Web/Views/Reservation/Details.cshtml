@@ -1,0 +1,54 @@
+﻿@model HotelBookingRooms.BLL.Entities.Reservation
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Reservation</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ChkIn)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ChkIn)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ChkOut)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ChkOut)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Hotel)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Hotel.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Room)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Room.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Status.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.Id)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Index" class="btn btn-default">Back to List</a>
+    <a asp-action="Edit" class="btn btn-warning" asp-route-id="@Model.Id">Edit</a>
+</div>

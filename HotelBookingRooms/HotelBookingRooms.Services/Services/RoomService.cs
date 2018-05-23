@@ -65,15 +65,19 @@ namespace RoomBookingRooms.Services.Services
                     .Include(x => x.RoomType)
                         .ThenInclude(h => h.Hotel)
                     .SingleOrDefault(x => x.Id == id);
+
             return room;
-                //_uow.Repository<Room>().Get(id);
         }
 
         
 
         public IEnumerable<Room> GetRooms()
         {
-            var rooms = _db.Room.Include(x => x.RoomType).ThenInclude(h => h.Hotel).ToList();// _uow.Repository<Room>().GetRange(null, true, null, null, null, r => r.RoomType, h=>h.RoomType.Hotel).ToList() ;
+            var rooms = _db.Room
+                .Include(x => x.RoomType)
+                .ThenInclude(h => h.Hotel)
+                .ToList();// _uow.Repository<Room>().GetRange(null, true, null, null, null, r => r.RoomType, h=>h.RoomType.Hotel).ToList() ;
+
             return rooms;
         }
 
