@@ -133,11 +133,9 @@ namespace HotelBookingRooms.DAL.Migrations
 
                     b.Property<int>("NumberOfPeople");
 
-                    b.Property<decimal>("PriceSeasonNumber")
-                        .HasMaxLength(40);
+                    b.Property<decimal>("PriceSeasonNumber");
 
-                    b.Property<decimal>("PriceStandardNumber")
-                        .HasMaxLength(40);
+                    b.Property<decimal>("PriceStandardNumber");
 
                     b.HasKey("Id");
 

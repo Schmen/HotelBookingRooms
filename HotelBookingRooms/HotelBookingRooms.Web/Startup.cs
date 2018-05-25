@@ -147,7 +147,7 @@ namespace HotelBookingRooms.Web
             #endregion
             Services = services;
 
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<ApplicationDbContext<User,Role,int>>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("ApplicationDbContext")));
         }
 
