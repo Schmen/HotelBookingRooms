@@ -81,6 +81,16 @@ namespace RoomBookingRooms.Services.Services
             return rooms;
         }
 
+        public IEnumerable<Room> GetRoomsInHotel(int id)
+        {
+            var rooms = _db.Room
+                .Include(x => x.RoomType)
+                .ThenInclude(h => h.Hotel)
+                .Where(h=>h.RoomType.Hotel.Id == id)
+                .ToList();// _uow.Repository<Room>().GetRange(null, true, null, null, null, r => r.RoomType, h=>h.RoomType.Hotel).ToList() ;
+
+            return rooms;
+        }
 
 
         public bool AddRoom(CreateRoomVM vm)

@@ -15,5 +15,6 @@ namespace HotelBookingRooms.Services.Interfaces
         bool EditRoom(int id, Room room);
         bool DeleteRoom(int id);
         IEnumerable<Room> GetRooms();
+        IEnumerable<Room> GetRoomsInHotel(int id);
     }
 }
