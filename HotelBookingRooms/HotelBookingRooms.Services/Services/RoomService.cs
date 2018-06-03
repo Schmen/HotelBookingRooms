@@ -3,6 +3,7 @@ using HotelBookingRooms.BLL.Entities;
 using HotelBookingRooms.DAL.EF;
 using HotelBookingRooms.Services.Interfaces;
 using HotelBookingRooms.ViewModels;
+using HotelBookingRooms.ViewModels.ReservationVM;
 using HotelBookingRooms.ViewModels.RoomVM;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -114,6 +115,31 @@ namespace RoomBookingRooms.Services.Services
                 //throw new System.ArgumentException("While adding rooms", "Cannot add room");
                 return false;
             }
+        }
+
+        public IEnumerable<Room> GetAvailableRoomsInSpecifiedHotel(SearchRoomVM vm)
+        {
+
+            var availableRooms = _db.Room.Where(x => x.Reservations.Count(z => z.ChkIn >= vm.ChkIn) == 0
+            && x.RoomType.NumberOfBeds == vm.NumberOfBeds
+            && x.RoomType.NumberOfPeople == vm.NumberOfPeople
+            && x.RoomType.Hotel == vm.Hotel)
+            .Include(x => x.RoomType)
+            .Include(x => x.RoomType.Hotel); // Zwraca wolne pokoje
+            
+            return availableRooms;
+        }
+
+        public IEnumerable<Room> GetAvailableRoomsInAllObject(SearchRoomVM vm)
+        {
+
+            var availableRooms = _db.Room.Where(x => x.Reservations.Count(z => z.ChkIn >= vm.ChkIn) == 0
+            && x.RoomType.NumberOfBeds == vm.NumberOfBeds
+            && x.RoomType.NumberOfPeople == vm.NumberOfPeople)
+            .Include(x => x.RoomType)
+            .Include(x => x.RoomType.Hotel); // Zwraca wolne pokoje
+
+            return availableRooms;
         }
     }
 }

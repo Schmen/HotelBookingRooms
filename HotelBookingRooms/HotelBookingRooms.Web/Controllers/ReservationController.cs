@@ -13,11 +13,15 @@ namespace HotelBookingRooms.Web.Controllers
     {
         private readonly IReservationService IReservationService;
         private readonly IRoomTypeService IRoomTypeService;
+        private readonly IHotelService IHotelService;
+        private readonly IRoomService IRoomService;
 
-        public ReservationController(IReservationService IReservationService, IRoomTypeService IRoomTypeService)
+        public ReservationController(IReservationService IReservationService, IRoomTypeService IRoomTypeService, IHotelService IHotelService, IRoomService IRoomService)
         {
             this.IReservationService = IReservationService;
             this.IRoomTypeService = IRoomTypeService;
+            this.IHotelService = IHotelService;
+            this.IRoomService = IRoomService;
         }
 
         public IActionResult Index()
@@ -136,6 +140,33 @@ namespace HotelBookingRooms.Web.Controllers
                     .ToList();
 
             return View(reservation);
+        }
+
+        [HttpGet]
+        public IActionResult SearchRoom()
+        {
+            SearchRoomVM vm = new SearchRoomVM();
+            vm.ChkIn = System.DateTime.Now;
+            vm.ChkOut = System.DateTime.Now;
+            ViewBag.Hotels = IHotelService.GetHotels().ToList();
+            
+            return View(vm);
+        }
+
+        [HttpPost]
+        public IActionResult SearchRoom([Bind("Hotel, Room, ChkIn, ChkOut, NumberOfPeople, NumberOfBeds")] SearchRoomVM vm)
+        {
+            if(vm.Hotel==null)
+            {
+                ViewBag.AvailableRooms = IRoomService.GetAvailableRoomsInAllObject(vm);
+            }
+            else
+            {
+                ViewBag.AvailableRooms = IRoomService.GetAvailableRoomsInSpecifiedHotel(vm);
+            }
+
+            ViewBag.Hotels = IHotelService.GetHotels().ToList();
+            return View(vm);
         }
     }
 }

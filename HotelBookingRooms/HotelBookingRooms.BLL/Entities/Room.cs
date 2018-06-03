@@ -20,5 +20,7 @@ namespace HotelBookingRooms.BLL.Entities
         [ForeignKey("RoomType")]
         public int? RoomTypeID { get; set; }
         public virtual RoomType RoomType { get; set; }
+
+        public virtual ICollection<Reservation> Reservations { get; set; }
     }
 }

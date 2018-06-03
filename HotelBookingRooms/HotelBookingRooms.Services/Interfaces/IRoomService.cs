@@ -1,5 +1,6 @@
 ﻿using HotelBookingRooms.BLL.Entities;
 using HotelBookingRooms.ViewModels;
+using HotelBookingRooms.ViewModels.ReservationVM;
 using HotelBookingRooms.ViewModels.RoomVM;
 using System;
 using System.Collections.Generic;
@@ -16,5 +17,7 @@ namespace HotelBookingRooms.Services.Interfaces
         bool DeleteRoom(int id);
         IEnumerable<Room> GetRooms();
         IEnumerable<Room> GetRoomsInHotel(int id);
+        IEnumerable<Room> GetAvailableRoomsInSpecifiedHotel(SearchRoomVM vm);
+        IEnumerable<Room> GetAvailableRoomsInAllObject(SearchRoomVM vm);
     }
 }

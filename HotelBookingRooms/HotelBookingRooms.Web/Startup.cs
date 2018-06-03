@@ -133,7 +133,7 @@ namespace HotelBookingRooms.Web
             services.AddScoped<IRoomTypeService, RoomTypeService>();
             services.AddScoped<IHotelService, HotelService>();
             services.AddScoped<IReservationService, ReservationService>();
-            services.AddScoped<IStatusService, StatusService>();
+            //services.AddScoped<IStatusService, StatusService>();
 
             var mappingConfig = new AutoMapper.MapperConfiguration(cfg =>
             {
