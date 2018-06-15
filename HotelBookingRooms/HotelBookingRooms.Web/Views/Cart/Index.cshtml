@@ -1,0 +1,45 @@
+﻿@model HotelBookingRooms.ViewModels.CartVM.CartIndexViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Your basket</h2>
+
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th class="text-left">Date From To</th>
+            <th>Hotel</th>
+            <th>Room type</th>
+            <th class="text-right"> Price standard</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var line in Model.Cart.Lines) {
+        <tr>
+            
+            <td class="text-center">@line.ChkIn.Value.Date - @line.ChkOut.Value.Date</td>
+            <td class="text-left">@line.Room.RoomType.Hotel.Name</td>
+            <td class="text-left">@line.Room.RoomType.Name</td>
+            <td class="text-right">@line.Room.RoomType.PriceStandardNumber</td>
+            @*<td class="text-right">*@
+                @*@((line.Quantity * line.Room.RoomType.PriceStandardNumber).ToString("c"))*@
+            @*</td>*@
+        </tr>
+}
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3" class="text-right"> TotalCost:</td>
+            <td class="text-right">
+                @Model.Cart.ComputeTotalValue().ToString("c")
+            </td>
+        </tr>
+    </tfoot>
+</table>
+
+<div class="text-center">
+    <a class="btn btn-primary" href="@Model.ReturnUrl">Book more!</a>
+</div>

@@ -90,7 +90,7 @@
                         @item.RoomType.Name
                     </td>
                     <td>
-                        @Html.ActionLink("Book", "Edit", new { /* id=item.PrimaryKey */ }, new { @class = "btn btn-primary" } )
+                        @Html.ActionLink("Book", "AddToCart", "Cart", new {  Id = item.Id, chkIn = Model.ChkIn, chkOut = Model.ChkOut }, new { @class = "btn btn-primary" } )
                     </td>
                 </tr>
                 }

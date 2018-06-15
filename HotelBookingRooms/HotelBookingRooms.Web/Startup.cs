@@ -98,7 +98,8 @@ namespace HotelBookingRooms.Web
                 x.KeyLengthLimit = int.MaxValue;
             });
             services.AddMvc();
-
+            services.AddMemoryCache();
+            services.AddSession();
             // enable JwT Token authentication for WEB API
             //services.AddAuthentication(options =>
             //{
