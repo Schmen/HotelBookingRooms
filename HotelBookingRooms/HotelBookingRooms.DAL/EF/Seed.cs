@@ -23,6 +23,13 @@ namespace HotelBookingRooms.DAL.EF
 
         public static void SeedRoles(RoleManager<Role> roleManager)
         {
+            if (!roleManager.RoleExistsAsync("Annonymous").Result)
+            {
+                Role role = new Role();
+                role.Name = "Annonymous";
+                IdentityResult roleResult = roleManager.CreateAsync(role).Result;
+            }
+
             if (!roleManager.RoleExistsAsync("User").Result)
             {
                 Role role = new Role();
@@ -50,6 +57,20 @@ namespace HotelBookingRooms.DAL.EF
 
         public static void SeedUsers(UserManager<User> userManager)
         {
+            if (userManager.FindByNameAsync("Annonymous").Result == null)
+            {
+                User user = new User();
+                user.UserName = "Annonymous";
+                user.Email = "Annonymous@localhost";
+
+                IdentityResult result = userManager.CreateAsync(user, "Admin@localhost").Result;
+
+                if (result.Succeeded)
+                {
+                    userManager.AddToRoleAsync(user, "Annonymous").Wait();
+                }
+            }
+
             if (userManager.FindByNameAsync("Admin").Result == null)
             {
                 User user = new User();
@@ -197,20 +218,20 @@ namespace HotelBookingRooms.DAL.EF
             DateTime today = DateTime.Now;
             List<Reservation> reservations = new List<Reservation>()
             {
-                new Reservation(){HotelId=1, RoomId=1, ChkIn = today, ChkOut = today.AddDays(1), StatusId = 1, UserId = 1 },
-                new Reservation(){HotelId=1, RoomId=2, ChkIn = today, ChkOut = today.AddDays(2), StatusId = 1,  UserId = 1 },
-                new Reservation(){HotelId=1, RoomId=3, ChkIn = today.AddDays(1), ChkOut = today.AddDays(3), StatusId = 2,  UserId = 1},
-                new Reservation(){HotelId=1, RoomId=4, ChkIn = today.AddDays(3), ChkOut = today.AddDays(4), StatusId = 3,  UserId = 1 },
+                new Reservation(){HotelId=1, RoomId=1, ChkIn = today, ChkOut = today.AddDays(1), StatusId = 1, UserId = 2 },
+                new Reservation(){HotelId=1, RoomId=2, ChkIn = today, ChkOut = today.AddDays(2), StatusId = 1,  UserId = 2 },
+                new Reservation(){HotelId=1, RoomId=3, ChkIn = today.AddDays(1), ChkOut = today.AddDays(3), StatusId = 2,  UserId = 2},
+                new Reservation(){HotelId=1, RoomId=4, ChkIn = today.AddDays(3), ChkOut = today.AddDays(4), StatusId = 3,  UserId = 2 },
                 
-                new Reservation(){HotelId=2, RoomId=6, ChkIn = today, ChkOut = today.AddDays(1), StatusId = 1,  UserId = 2 },
-                new Reservation(){HotelId=2, RoomId=7, ChkIn = today, ChkOut = today.AddDays(1), StatusId = 1,  UserId = 2  },
-                new Reservation(){HotelId=2, RoomId=8, ChkIn = today.AddDays(2), ChkOut = today.AddDays(4), StatusId = 2,  UserId = 2  },
-                new Reservation(){HotelId=2, RoomId=9, ChkIn = today.AddDays(4), ChkOut = today.AddDays(6), StatusId = 3,  UserId = 2  },
+                new Reservation(){HotelId=2, RoomId=6, ChkIn = today, ChkOut = today.AddDays(1), StatusId = 1,  UserId = 3 },
+                new Reservation(){HotelId=2, RoomId=7, ChkIn = today, ChkOut = today.AddDays(1), StatusId = 1,  UserId = 3  },
+                new Reservation(){HotelId=2, RoomId=8, ChkIn = today.AddDays(2), ChkOut = today.AddDays(4), StatusId = 2,  UserId = 3  },
+                new Reservation(){HotelId=2, RoomId=9, ChkIn = today.AddDays(4), ChkOut = today.AddDays(6), StatusId = 3,  UserId = 3  },
                 
-                new Reservation(){HotelId=3, RoomId=11, ChkIn = today, ChkOut = today.AddDays(1), StatusId = 1,  UserId = 3},
-                new Reservation(){HotelId=3, RoomId=12, ChkIn = today, ChkOut = today.AddDays(1), StatusId = 1,  UserId = 3},
-                new Reservation(){HotelId=3, RoomId=13, ChkIn = today.AddDays(4), ChkOut = today.AddDays(7), StatusId = 2,  UserId = 3 },
-                new Reservation(){HotelId=3, RoomId=14, ChkIn = today.AddDays(7), ChkOut = today.AddDays(9), StatusId = 3,  UserId = 3 },
+                new Reservation(){HotelId=3, RoomId=11, ChkIn = today, ChkOut = today.AddDays(1), StatusId = 1,  UserId = 4},
+                new Reservation(){HotelId=3, RoomId=12, ChkIn = today, ChkOut = today.AddDays(1), StatusId = 1,  UserId = 4},
+                new Reservation(){HotelId=3, RoomId=13, ChkIn = today.AddDays(4), ChkOut = today.AddDays(7), StatusId = 2,  UserId = 4 },
+                new Reservation(){HotelId=3, RoomId=14, ChkIn = today.AddDays(7), ChkOut = today.AddDays(9), StatusId = 3,  UserId = 4 },
 
             };
             foreach (var reservation in reservations)

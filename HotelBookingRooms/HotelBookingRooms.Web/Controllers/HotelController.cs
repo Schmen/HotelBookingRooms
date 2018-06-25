@@ -13,7 +13,7 @@ namespace HotelBookingRooms.Web.Controllers
     {
         public HotelController(IUnitOfWork uow, ILoggerFactory loggerFactory) : base(uow, loggerFactory)
         {
-
+            
         }
 
         public IActionResult Index()

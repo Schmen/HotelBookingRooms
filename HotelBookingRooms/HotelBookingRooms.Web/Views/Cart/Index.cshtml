@@ -13,20 +13,31 @@
             <th class="text-left">Date From To</th>
             <th>Hotel</th>
             <th>Room type</th>
-            <th class="text-right"> Price standard</th>
+            <th class="text-right"> Per day</th>
         </tr>
     </thead>
     <tbody>
 @foreach (var line in Model.Cart.Lines) {
         <tr>
-            
+
             <td class="text-center">@line.ChkIn.Value.Date - @line.ChkOut.Value.Date</td>
             <td class="text-left">@line.Room.RoomType.Hotel.Name</td>
             <td class="text-left">@line.Room.RoomType.Name</td>
             <td class="text-right">@line.Room.RoomType.PriceStandardNumber</td>
             @*<td class="text-right">*@
-                @*@((line.Quantity * line.Room.RoomType.PriceStandardNumber).ToString("c"))*@
+            @*@((line.Quantity * line.Room.RoomType.PriceStandardNumber).ToString("c"))*@
             @*</td>*@
+            <td>
+                <form asp-action="RemoveFromCart" method="post">
+                    <input type="hidden" name="RoomId"
+                           value="@line.Room.Id" />
+                    <input type="hidden" name="returnUr;"
+                           value="@Model.ReturnUrl" />
+                    <button type="submit" class="btn btn-sm btn0danger">
+                        Delete
+                    </button>
+                </form>
+            </td>
         </tr>
 }
     </tbody>
@@ -42,4 +53,5 @@
 
 <div class="text-center">
     <a class="btn btn-primary" href="@Model.ReturnUrl">Book more!</a>
+    <a class="btn btn-primary" asp-action="Checkout" asp-controller="Reservation">Checkout</a>
 </div>

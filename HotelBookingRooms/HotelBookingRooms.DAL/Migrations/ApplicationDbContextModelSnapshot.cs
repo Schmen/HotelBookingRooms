@@ -21,6 +21,28 @@ namespace HotelBookingRooms.DAL.Migrations
                 .HasAnnotation("ProductVersion", "2.0.2-rtm-10011")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("HotelBookingRooms.BLL.Entities.Cart+CartLine", b =>
+                {
+                    b.Property<int>("CartLineID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime?>("ChkIn");
+
+                    b.Property<DateTime?>("ChkOut");
+
+                    b.Property<int?>("PaymentId");
+
+                    b.Property<int?>("RoomId");
+
+                    b.HasKey("CartLineID");
+
+                    b.HasIndex("PaymentId");
+
+                    b.HasIndex("RoomId");
+
+                    b.ToTable("CartLine");
+                });
+
             modelBuilder.Entity("HotelBookingRooms.BLL.Entities.Hotel", b =>
                 {
                     b.Property<int>("Id")
@@ -33,6 +55,37 @@ namespace HotelBookingRooms.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Hotel");
+                });
+
+            modelBuilder.Entity("HotelBookingRooms.BLL.Entities.Payment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("City")
+                        .IsRequired();
+
+                    b.Property<string>("Country")
+                        .IsRequired();
+
+                    b.Property<string>("Line1")
+                        .IsRequired();
+
+                    b.Property<string>("Line2")
+                        .IsRequired();
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.Property<string>("State")
+                        .IsRequired();
+
+                    b.Property<string>("Zip")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Payment");
                 });
 
             modelBuilder.Entity("HotelBookingRooms.BLL.Entities.Reservation", b =>
@@ -48,6 +101,8 @@ namespace HotelBookingRooms.DAL.Migrations
 
                     b.Property<int>("HotelId");
 
+                    b.Property<int?>("PaymentId");
+
                     b.Property<int>("RoomId");
 
                     b.Property<int?>("StatusId")
@@ -58,6 +113,8 @@ namespace HotelBookingRooms.DAL.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("HotelId");
+
+                    b.HasIndex("PaymentId");
 
                     b.HasIndex("RoomId");
 
@@ -298,6 +355,17 @@ namespace HotelBookingRooms.DAL.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("HotelBookingRooms.BLL.Entities.Cart+CartLine", b =>
+                {
+                    b.HasOne("HotelBookingRooms.BLL.Entities.Payment")
+                        .WithMany("Lines")
+                        .HasForeignKey("PaymentId");
+
+                    b.HasOne("HotelBookingRooms.BLL.Entities.Room", "Room")
+                        .WithMany()
+                        .HasForeignKey("RoomId");
+                });
+
             modelBuilder.Entity("HotelBookingRooms.BLL.Entities.Reservation", b =>
                 {
                     b.HasOne("HotelBookingRooms.BLL.Entities.Hotel", "Hotel")
@@ -305,8 +373,12 @@ namespace HotelBookingRooms.DAL.Migrations
                         .HasForeignKey("HotelId")
                         .OnDelete(DeleteBehavior.Cascade);
 
+                    b.HasOne("HotelBookingRooms.BLL.Entities.Payment")
+                        .WithMany("Reservations")
+                        .HasForeignKey("PaymentId");
+
                     b.HasOne("HotelBookingRooms.BLL.Entities.Room", "Room")
-                        .WithMany()
+                        .WithMany("Reservations")
                         .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Cascade);
 

@@ -100,6 +100,7 @@ namespace HotelBookingRooms.Web
             services.AddMvc();
             services.AddMemoryCache();
             services.AddSession();
+
             // enable JwT Token authentication for WEB API
             //services.AddAuthentication(options =>
             //{
@@ -134,6 +135,8 @@ namespace HotelBookingRooms.Web
             services.AddScoped<IRoomTypeService, RoomTypeService>();
             services.AddScoped<IHotelService, HotelService>();
             services.AddScoped<IReservationService, ReservationService>();
+            services.AddScoped<IPaymentService, PaymentService>();
+            services.AddScoped<IUserService, UserService>();
             //services.AddScoped<IStatusService, StatusService>();
 
             var mappingConfig = new AutoMapper.MapperConfiguration(cfg =>

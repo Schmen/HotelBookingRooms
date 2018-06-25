@@ -1,0 +1,15 @@
+﻿@model HotelBookingRooms.ViewModels.ReservationVM.TransactionCompleteVM
+
+<h2>Congratulations! reservation has been completed</h2>
+<h2> Your reservation number is: @Model.paid.Id</h2>
+
+@*@if(Model.booked.Count!=0)
+{
+    <h3>You have booked rooms</h3>
+    @foreach(var res in Model.booked)
+    {
+        <h3>@res.Room.RoomNumber</h3>
+    }
+}*@
+
+

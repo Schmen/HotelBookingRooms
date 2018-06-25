@@ -36,5 +36,8 @@ namespace HotelBookingRooms.BLL.Entities
         public int? StatusId { get; set; }
         public virtual Status Status { get; set; }
 
+        public int? PaymentId { get; set; }
+        public virtual Payment Payment { get; set; }
+
     }
 }

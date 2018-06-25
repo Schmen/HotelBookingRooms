@@ -6,22 +6,37 @@ using Microsoft.AspNetCore.Mvc;
 using HotelBookingRooms.Services.Interfaces;
 using HotelBookingRooms.ViewModels.ReservationVM;
 using HotelBookingRooms.BLL.Entities;
+using HotelBookingRooms.Utilities;
+using DataAccessLayer.Core.Interfaces.UoW;
+using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Identity;
 
 namespace HotelBookingRooms.Web.Controllers
 {
-    public class ReservationController : Controller
+    public class ReservationController : BaseController
     {
         private readonly IReservationService IReservationService;
         private readonly IRoomTypeService IRoomTypeService;
         private readonly IHotelService IHotelService;
         private readonly IRoomService IRoomService;
+        private readonly IPaymentService IPaymentService;
+        private readonly UserManager<User> _userManager;
+        private readonly IUserService IUserService;
 
-        public ReservationController(IReservationService IReservationService, IRoomTypeService IRoomTypeService, IHotelService IHotelService, IRoomService IRoomService)
+        public ReservationController(IUnitOfWork uow, ILoggerFactory loggerFactory,
+            IReservationService IReservationService, 
+            IRoomTypeService IRoomTypeService, IHotelService IHotelService,
+            IRoomService IRoomService, IPaymentService IPaymentService,
+            UserManager<User> userManager, IUserService IUserService) 
+            : base(uow, loggerFactory)
         {
+            this._userManager = userManager;
             this.IReservationService = IReservationService;
             this.IRoomTypeService = IRoomTypeService;
             this.IHotelService = IHotelService;
             this.IRoomService = IRoomService;
+            this.IPaymentService = IPaymentService;
+            this.IUserService = IUserService;
         }
 
         public IActionResult Index()
@@ -168,5 +183,80 @@ namespace HotelBookingRooms.Web.Controllers
             ViewBag.Hotels = IHotelService.GetHotels().ToList();
             return View(vm);
         }
+
+        [HttpGet]
+        public ViewResult Checkout() => View(new Payment());
+
+        [HttpPost]
+        public ViewResult Checkout(Payment payment)
+        {
+            if (payment!= null)
+            {
+                var isAdded = IPaymentService.AddPayment(payment);
+                List<Reservation> reservations = new List<Reservation>();
+                var reservationCart = GetCart();
+                var numberOfReservationRooms = reservationCart.Lines.Count();
+                for(int i = 0; i < numberOfReservationRooms; i++)
+                {
+                    foreach(var r in reservationCart.Lines)
+                    {
+                        if (User.Identity.IsAuthenticated == false)
+                        {
+                            Reservation res = new Reservation()
+                            {
+                                HotelId = r.Room.RoomType.HotelId,
+                                UserId = 1,
+                                RoomId = r.Room.Id,
+                                ChkIn = r.ChkIn,
+                                ChkOut = r.ChkOut,
+                                StatusId = 2,
+                                PaymentId = payment.Id
+                            };
+                            reservations.Add(res);
+                        }
+                        else
+                        {
+                            var g = _userManager.GetUserName(HttpContext.User);
+                            var user = IUserService.GetUserByName(g);
+
+                            Reservation res = new Reservation()
+                            {
+                                HotelId = r.Room.RoomType.HotelId,
+                                User = user,
+                                Room = IRoomService.GetRoom(r.Room.Id),
+                                ChkIn = r.ChkIn,
+                                ChkOut = r.ChkOut,
+                                StatusId = 2,
+                                PaymentId = payment.Id
+                            };
+                            reservations.Add(res);
+                        }
+                    }
+                }
+                var isCorrect = IReservationService.AddReservations(reservations);
+                if(isCorrect==true)
+                {
+                    TransactionCompleteVM vm = new TransactionCompleteVM()
+                    {
+                        booked = reservations,
+                        paid = payment
+                    };
+                    Cart cart = GetCart();
+                    cart.Clear();
+                    return View("Complete", vm);
+                }
+            }
+            return View();
+        }
+
+        private Cart GetCart()
+        {
+            Cart cart = HttpContext.Session.GetJson<Cart>("Cart") ?? new Cart();
+            return cart;
+        }
+
+
+
+
     }
 }

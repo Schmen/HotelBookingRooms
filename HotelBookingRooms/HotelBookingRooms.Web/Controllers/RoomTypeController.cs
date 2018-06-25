@@ -13,7 +13,6 @@ namespace HotelBookingRooms.Web.Controllers
 {
     public class RoomTypeController : Controller
     {
-
         private readonly IHotelService IHotelService;
         private readonly IRoomService IRoomService;
         private readonly IRoomTypeService IRoomTypeService;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,20 +24,14 @@ namespace HotelBookingRooms.BLL.Entities
                 .Where(p => p.Room.Id == room.Id)
                 .FirstOrDefault();
 
-            if(line==null)
+            lineCollection.Add(new CartLine
             {
-                lineCollection.Add(new CartLine
-                {
-                    Room = room,
-                    ChkIn = chkIn,
-                    ChkOut = chkOut
-                });
+                Room = room,
+                ChkIn = chkIn,
+                ChkOut = chkOut
+            });
 
-            }
-            else
-            {
-                //line.Quantity += quantity;
-            }
+
         }
 
         public void RemoveLine(Room room)
@@ -48,6 +43,7 @@ namespace HotelBookingRooms.BLL.Entities
             lineCollection.Sum(r => r.Room.RoomType.PriceStandardNumber * Convert.ToInt32(r.ChkOut.Value.Day - r.ChkIn.Value.Day));
 
         public virtual void Clear() => lineCollection.Clear();
+       // public virtual void Clear() { lineCollection = new List<CartLine>(); }
 
         public virtual IEnumerable<CartLine> Lines => lineCollection;
     }

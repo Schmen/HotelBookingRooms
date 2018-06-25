@@ -111,5 +111,23 @@ namespace HotelBookingRooms.Services.Services
             }
         }
 
+        public bool AddReservations(List<Reservation> reservations)
+        {
+            try
+            {
+                foreach(Reservation res in reservations)
+                {
+                    _db.Reservation.Add(res);
+                }
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                //throw new System.ArgumentException("While adding rooms", "Cannot add room");
+                return false;
+            }
+        }
+
     }
 }
