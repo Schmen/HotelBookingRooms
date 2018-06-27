@@ -8,6 +8,7 @@ using HotelBookingRooms.DAL.EF;
 using HotelBookingRooms.Services.Interfaces;
 using HotelBookingRooms.Services.Services;
 using HotelBookingRooms.Web.Configuration;
+using HotelBookingRooms.Web.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
@@ -153,6 +154,8 @@ namespace HotelBookingRooms.Web
 
             services.AddDbContext<ApplicationDbContext<User,Role,int>>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("ApplicationDbContext")));
+
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -189,6 +192,11 @@ namespace HotelBookingRooms.Web
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+            });
+
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<ChatHub>("/chathub");
             });
         }
     }

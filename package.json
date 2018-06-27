@@ -1,0 +1,23 @@
+{
+  "name": "HotelBookingRooms",
+  "version": "1.0.0",
+  "description": "This repository contains implementation of hotel booking rooms system which is written in C# and ASP.NET CORE 2.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Schmen/HotelBookingRooms.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Schmen/HotelBookingRooms/issues"
+  },
+  "homepage": "https://github.com/Schmen/HotelBookingRooms#readme",
+  "dependencies": {
+    "@aspnet/signalr": "^1.0.0"
+  }
+}
