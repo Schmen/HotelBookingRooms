@@ -2,6 +2,7 @@
 using HotelBookingRooms.BLL.Entities;
 using HotelBookingRooms.DAL.EF;
 using HotelBookingRooms.Services.Interfaces;
+using HotelBookingRooms.ViewModels.PaginationVM;
 using HotelBookingRooms.ViewModels.ReservationVM;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -57,9 +58,10 @@ namespace HotelBookingRooms.Services.Services
             }
         }
 
-
+        
         public Reservation GetReservation(int id)
         {
+
             var reservation = _db.Reservation
                     .Include(x => x.Hotel)
                     .Include(x => x.Room)
@@ -71,22 +73,65 @@ namespace HotelBookingRooms.Services.Services
             return reservation;
         }
 
+        public ReservationsListViewModel GetReservation2(int productPage)
+        {
+            ReservationsListViewModel vm = new ReservationsListViewModel()
+            {
+                Reservations = _db.Reservation
+                .OrderBy(r => r.Id)
+                .Skip((productPage - 1) * PageSize)
+                .Take(PageSize)
+                .Include(x => x.Hotel)
+                .Include(x => x.Room)
+                .Include(x => x.User)
+                .Include(x => x.Status)
+                .ToList(),
 
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = productPage,
+                    ItemsPerPage = PageSize,
+                    TotalItems = _db.Reservation.Count()
+                }
+            };
 
-        public IEnumerable<Reservation> GetReservations()
+            return vm;
+        }
+
+        public int PageSize = 10;
+        public IEnumerable<Reservation> GetReservations(int productPage)
         {
             // _uow.Repository<Room>().GetRange(null, true, null, null, null, r => r.RoomType, h=>h.RoomType.Hotel).ToList() ;
             var reservations = _db.Reservation
-                .Include(x=>x.Hotel)
-                .Include(x=>x.Room)
-                .Include(x=>x.User)
-                .Include(x=>x.Status)
+                .OrderBy(r => r.Id)
+                .Skip((productPage - 1) * PageSize)
+                .Take(PageSize)
+                .Include(x => x.Hotel)
+                .Include(x => x.Room)
+                .Include(x => x.User)
+                .Include(x => x.Status)
+                .Include(x => x.Room.RoomType)
                 .ToList();
+
 
             return reservations;
         }
 
 
+
+        public IEnumerable<Reservation> GetUserReservations(string userName)
+        {
+            var reservations = _db.Reservation
+                    .Include(x => x.Hotel)
+                    .Include(x => x.Room)
+                    .Include(x => x.User)
+                    .Include(x => x.Status)
+                    .Include(x => x.Room.RoomType)
+                    .Where(x => x.User.Email == userName)
+                    .ToList();
+
+            return reservations;
+        }
 
         public bool AddReservation(CreateReservationVM vm)
         {

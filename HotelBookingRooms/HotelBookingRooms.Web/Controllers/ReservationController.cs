@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace HotelBookingRooms.Web.Controllers
 {
-    public class ReservationController : BaseController
+    public class ReservationController : Controller
     {
         private readonly IReservationService IReservationService;
         private readonly IRoomTypeService IRoomTypeService;
@@ -23,12 +23,10 @@ namespace HotelBookingRooms.Web.Controllers
         private readonly UserManager<User> _userManager;
         private readonly IUserService IUserService;
 
-        public ReservationController(IUnitOfWork uow, ILoggerFactory loggerFactory,
-            IReservationService IReservationService, 
+        public ReservationController(IReservationService IReservationService, 
             IRoomTypeService IRoomTypeService, IHotelService IHotelService,
             IRoomService IRoomService, IPaymentService IPaymentService,
             UserManager<User> userManager, IUserService IUserService) 
-            : base(uow, loggerFactory)
         {
             this._userManager = userManager;
             this.IReservationService = IReservationService;
@@ -39,9 +37,15 @@ namespace HotelBookingRooms.Web.Controllers
             this.IUserService = IUserService;
         }
 
-        public IActionResult Index()
+        //public ViewResult List(int productPage=1)
+        //    => View(new ReservationListViewModel
+        //    {
+        //        Reservation
+        //    })
+
+        public IActionResult Index(int productPage = 1)
         {
-            var reservations = IReservationService.GetReservations();
+            var reservations = IReservationService.GetReservations(productPage);
             var reservationsVM = new List<IndexReservationVM>();
 
             foreach(var map in reservations)
@@ -53,6 +57,33 @@ namespace HotelBookingRooms.Web.Controllers
                 
 
             return View(reservationsVM);
+        }
+
+        public IActionResult GetUserReservation()
+        {
+
+            if(User.Identity.IsAuthenticated==true)
+            {
+                var reservations = IReservationService.GetUserReservations(User.Identity.Name);
+                var reservationsVM = new List<IndexReservationVM>();
+
+                foreach (var map in reservations)
+                {
+                    IndexReservationVM vm = new IndexReservationVM();
+                    AutoMapper.Mapper.Map(map, vm);
+                    reservationsVM.Add(vm);
+                }
+                return View(reservationsVM);
+            }
+
+            return View("Index", null);
+            
+        }
+
+        public IActionResult List(int productPage = 1)
+        {
+            var reservations = IReservationService.GetReservation2(productPage);
+            return View(reservations);
         }
 
         //[HttpPost]
@@ -209,7 +240,7 @@ namespace HotelBookingRooms.Web.Controllers
                                 RoomId = r.Room.Id,
                                 ChkIn = r.ChkIn,
                                 ChkOut = r.ChkOut,
-                                StatusId = 2,
+                                StatusId = 3,
                                 PaymentId = payment.Id
                             };
                             reservations.Add(res);
@@ -226,7 +257,7 @@ namespace HotelBookingRooms.Web.Controllers
                                 Room = IRoomService.GetRoom(r.Room.Id),
                                 ChkIn = r.ChkIn,
                                 ChkOut = r.ChkOut,
-                                StatusId = 2,
+                                StatusId = 3,
                                 PaymentId = payment.Id
                             };
                             reservations.Add(res);
